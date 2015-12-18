@@ -1,0 +1,30 @@
+{
+  "name": "buttercup-core-web",
+  "version": "0.1.1",
+  "description": "Buttercup core library for the web.",
+  "main": "source/index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/perry-mitchell/buttercup-core-web.git"
+  },
+  "keywords": [
+    "buttercup",
+    "password",
+    "security",
+    "encryption"
+  ],
+  "author": "Perry Mitchell <perry@perrymitchell.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/perry-mitchell/buttercup-core-web/issues"
+  },
+  "homepage": "https://github.com/perry-mitchell/buttercup-core-web#readme",
+  "dependencies": {
+    "brfs": "^1.4.1",
+    "browserify": "^12.0.1",
+    "buttercup": "^0.10.2"
+  }
+}
