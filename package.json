@@ -1,6 +1,6 @@
 {
   "name": "buttercup-core-web",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Buttercup core library for the web.",
   "main": "source/index.js",
   "scripts": {
@@ -25,7 +25,7 @@
   "dependencies": {
     "brfs": "^1.4.1",
     "browserify": "^12.0.1",
-    "buttercup": "^0.10.2",
+    "buttercup": "^0.11.1",
     "grunt": "^0.4.5",
     "grunt-contrib-uglify": "^0.11.0",
     "grunt-exec": "^0.4.6",
