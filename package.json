@@ -25,6 +25,10 @@
   "dependencies": {
     "brfs": "^1.4.1",
     "browserify": "^12.0.1",
-    "buttercup": "^0.10.2"
+    "buttercup": "^0.10.2",
+    "grunt": "^0.4.5",
+    "grunt-contrib-uglify": "^0.11.0",
+    "grunt-exec": "^0.4.6",
+    "load-grunt-tasks": "^3.3.0"
   }
 }
