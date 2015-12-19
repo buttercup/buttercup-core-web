@@ -39,6 +39,9 @@ module.exports = function(grunt) {
         "uglify:buttercup"
     ]);
 
-    grunt.registerTask("test", ["jasmine:buttercup"]);
+    grunt.registerTask("test", [
+        "build",
+        "jasmine:buttercup"
+    ]);
 
 };
