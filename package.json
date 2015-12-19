@@ -4,7 +4,7 @@
   "description": "Buttercup core library for the web.",
   "main": "source/index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
