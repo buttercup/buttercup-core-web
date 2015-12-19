@@ -11,6 +11,15 @@ module.exports = function(grunt) {
             }
         },
 
+        jasmine: {
+            buttercup: {
+                src: "build/buttercup.min.js",
+                options: {
+                    specs: "tests/**/*.js"
+                }
+            }
+        },
+
         uglify: {
             buttercup: {
                 files: {
