@@ -7,7 +7,7 @@ module.exports = function(grunt) {
         exec: {
             browserify: {
                 //cmd: 'NODE_PATH=node_modules/buttercup/source node node_modules/browserify/bin/cmd.js -e node_modules/buttercup/source/module.js --insert-globals -o build/buttercup.js'
-                cmd: 'node node_modules/browserify/bin/cmd.js -e source/index.js --ignore curlrequest -t brfs --insert-globals -o build/buttercup.js'
+                cmd: 'node node_modules/browserify/bin/cmd.js -e source/index.js -t brfs --insert-globals -o build/buttercup.js'
             }
         },
 
