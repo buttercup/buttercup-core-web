@@ -5,8 +5,8 @@
   "main": "source/index.js",
   "scripts": {
     "test": "./node_modules/.bin/grunt test",
-    "install": "npm run build",
-    "build": "./node_modules/.bin/grunt build"
+    "postinstall": "npm run build",
+    "build": "./node_modules/.bin/grunt build --gruntfile ./Gruntfile.js"
   },
   "repository": {
     "type": "git",
