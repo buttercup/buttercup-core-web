@@ -1,11 +1,11 @@
 {
   "name": "buttercup-web",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Buttercup core library for the web.",
   "main": "source/index.js",
   "scripts": {
     "test": "grunt test",
-    "install": "cd node_modules/buttercup && npm run install",
+    "install": "grunt build",
     "build": "./node_modules/.bin/grunt build"
   },
   "repository": {
