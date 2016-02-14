@@ -5,6 +5,7 @@
   "main": "source/index.js",
   "scripts": {
     "test": "npm run build && grunt test",
+    "install": "node scripts/link.js",
     "postinstall": "npm run build",
     "build": "node scripts/build.js"
   },
@@ -27,7 +28,8 @@
   "dependencies": {
     "brfs": "^1.4.1",
     "browserify": "^12.0.1",
-    "buttercup": "~0.13.0",
+    "buttercup": "~0.14.0",
+    "fs-symlink": "^1.2.1",
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
     "load-grunt-tasks": "^3.3.0",

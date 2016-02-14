@@ -5,7 +5,7 @@
     var Buttercup = require("buttercup"),
         Credentials = Buttercup.Credentials;
 
-    var ArchiveManager = function() {
+    var ArchiveManager = module.exports = function() {
         this._archives = {};
     };
 
@@ -29,6 +29,7 @@
             throw new Error("Failed unlocking credentials: " + name);
         }
         archiveDetails.credentials = credentials;
+        return credentials;
     };
 
     ArchiveManager.ArchiveStatus = {
