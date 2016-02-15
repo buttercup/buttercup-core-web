@@ -4,7 +4,7 @@
 
 	window.Buttercup = require("buttercup");
 
-	var ArchiveManager = require("./ArchiveManager.js");
+	var ArchiveManager = require("__buttercup_web/ArchiveManager.js");
 
 	window.Buttercup.Web = {
 

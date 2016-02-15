@@ -6,7 +6,7 @@
         Credentials = Buttercup.Credentials,
         StorageInterface = require("__buttercup_web/StorageInterface.js");
 
-    var ArchiveManager = function() {
+    var ArchiveManager = module.exports = function() {
         this._archives = {};
     };
 
@@ -57,18 +57,18 @@
     };
 
     ArchiveManager.prototype.unlock = function(name, password) {
+        var archiveDetails = this._archives[name];
         if (!this.isLocked(name)) {
-            return false;
+            return archiveDetails;
         }
-        var archiveDetails = this._archives[name],
-            credentials = Credentials.fromSecureContent(archiveDetails.credentials, password);
+        var credentials = Credentials.fromSecureContent(archiveDetails.credentials, password);
         if (!credentials) {
             throw new Error("Failed unlocking credentials: " + name);
         }
         archiveDetails.credentials = credentials;
         archiveDetails.password = password;
         archiveDetails.status = ArchiveManager.ArchiveStatus.UNLOCKED;
-        return true;
+        return credentials;
     };
 
     ArchiveManager.ArchiveStatus = {
