@@ -10,13 +10,20 @@
         this._archives = {};
     };
 
-    ArchiveManager.prototype.addArchiveCredentials = function(name, credentials, password) {
+    ArchiveManager.prototype.addCredentials = function(name, credentials, password) {
         this._archives[name] = {
             status: ArchiveManager.ArchiveStatus.UNLOCKED,
             credentials: credentials,
             password: password
         };
     };
+
+    ArchiveManager.prototype.getCredentials = function(name) {
+        if (this.isLocked(name)) {
+            throw new Error("Credentials are locked");
+        }
+        return this._archives[name].credentials;
+    }
 
     ArchiveManager.prototype.isLocked = function(name) {
         return this._archives[name].status === ArchiveManager.ArchiveStatus.LOCKED;

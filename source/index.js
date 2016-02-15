@@ -8,6 +8,8 @@
 
 	window.Buttercup.Web = {
 
+		ArchiveManager: ArchiveManager,
+
 		archiveManager: new ArchiveManager()
 
 	};

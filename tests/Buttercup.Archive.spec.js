@@ -1,4 +1,4 @@
-describe("Archive", function() {
+describe("Buttercup.Archive", function() {
 
 	"use strict";
 

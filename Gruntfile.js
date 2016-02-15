@@ -5,7 +5,13 @@ module.exports = function(grunt) {
     grunt.initConfig({
 
         jasmine: {
-            buttercup: {
+            buttercup_raw: {
+                src: "build/buttercup.js",
+                options: {
+                    specs: "tests/**/*.js"
+                }
+            },
+            buttercup_min: {
                 src: "build/buttercup.min.js",
                 options: {
                     specs: "tests/**/*.js"
@@ -20,7 +26,8 @@ module.exports = function(grunt) {
     grunt.registerTask("default", ["test"]);
 
     grunt.registerTask("test", [
-        "jasmine:buttercup"
+        "jasmine:buttercup_raw",
+        "jasmine:buttercup_min"
     ]);
 
 };
