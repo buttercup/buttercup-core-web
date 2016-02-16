@@ -29,7 +29,7 @@
         return this._archives[name].status === ArchiveManager.ArchiveStatus.LOCKED;
     };
 
-    ArchiveManager.prototype.loadData = function() {
+    ArchiveManager.prototype.loadState = function() {
         this._archives = {};
         var loadedData = StorageInterface.getData("archiveManager", { archives: {} });
         for (var name in loadedData.archives) {

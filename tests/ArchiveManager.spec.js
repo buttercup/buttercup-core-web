@@ -36,4 +36,22 @@ describe("ArchiveManager", function() {
         expect(archiveManager._archives["custom"].password).not.toBeDefined();
     });
 
+    it("saves and loads state", function() {
+        archiveManager.addCredentials("custom", credentials, "masterPa55");
+        archiveManager.saveState();
+        archiveManager.loadState();
+        expect(archiveManager.isLocked("custom")).toBe(true);
+    });
+
+    it("loads and unlocks", function() {
+        archiveManager.addCredentials("custom", credentials, "masterPa55");
+        archiveManager.saveState();
+        archiveManager.loadState();
+        var creds = archiveManager.unlock("custom", "masterPa55");
+        expect(archiveManager.isLocked("custom")).toBe(false);
+        expect(creds.model.get("username")).toBe("abc123");
+        expect(creds.model.get("password")).toBe("1$55*");
+        expect(creds.model.get("type")).toBe("webdav");
+    });
+
 });

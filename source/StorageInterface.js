@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var StorageInterface = {
+    var StorageInterface = module.exports = {
 
         getData: function(key, defaultValue) {
             var value = window.localStorage.getItem(key);
