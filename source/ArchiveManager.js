@@ -23,7 +23,7 @@
             throw new Error("Credentials are locked");
         }
         return this._archives[name].credentials;
-    }
+    };
 
     ArchiveManager.prototype.isLocked = function(name) {
         return this._archives[name].status === ArchiveManager.ArchiveStatus.LOCKED;
