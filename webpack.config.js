@@ -29,7 +29,8 @@ module.exports = {
     resolve: {
         alias: {
             crypto: require.resolve("crypto-browserify")
-        }
+        },
+        fallback: [path.join(__dirname, 'node_modules')]
     },
 
     stats: {
