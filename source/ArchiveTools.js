@@ -11,8 +11,7 @@
                     .findEntriesByMeta(metaKey, /.+/)
                     .filter(function(entry) {
                         var entryURL = entry.getMeta(metaKey);
-                        console.log("ENTRY", entry, entryURL);
-                        return (url.toLowerCase().indexOf(entryURL.toLowerCase()));
+                        return (url.toLowerCase().indexOf(entryURL.toLowerCase()) >= 0);
                     });
                 if (newEntries.length > 0) {
                     entries = entries.concat(newEntries);
