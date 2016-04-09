@@ -44,38 +44,50 @@
         var details = this._archives[name];
         if (details.status === ArchiveManager.ArchiveStatus.UNLOCKED) {
             details.status = ArchiveManager.ArchiveStatus.LOCKED;
-            details.credentials = details.credentials.toSecure(details.password);
-            delete details.password;
+            return details.credentials.convertToSecureContent(details.password)
+                .then(function(secureContent) {
+                    details.credentials = secureContent;
+                    delete details.password;
+                });
         }
+        return Promise.resolve();
     };
 
     ArchiveManager.prototype.saveState = function() {
         var packet = {
             archives: {}
         };
-        for (var name in this._archives) {
-            if (this._archives.hasOwnProperty(name)) {
-                packet.archives[name] = this.isLocked(name) ?
-                    this._archives[name].credentials :
-                    this._archives[name].credentials.toSecure(this._archives[name].password);
-            }
-        }
-        StorageInterface.setData("archiveManager", packet);
+        return Promise.all(
+                Object.keys(this._archives).map((name) => {
+                    let archiveDetails = this._archives[name];
+                    return (this.isLocked(name)) ?
+                        Promise.resolve() :
+                        archiveDetails.credentials
+                            .convertToSecureContent(archiveDetails.password)
+                            .then((content) => {
+                                packet.archives[name] = content;
+                            });
+                })
+            ).then(function() {
+                StorageInterface.setData("archiveManager", packet);
+            });
     };
 
     ArchiveManager.prototype.unlock = function(name, password) {
         var archiveDetails = this._archives[name];
         if (!this.isLocked(name)) {
-            return archiveDetails;
+            return Promise.resolve(archiveDetails);
         }
-        var credentials = Credentials.fromSecureContent(archiveDetails.credentials, password);
-        if (!credentials) {
-            throw new Error("Failed unlocking credentials: " + name);
-        }
-        archiveDetails.credentials = credentials;
-        archiveDetails.password = password;
-        archiveDetails.status = ArchiveManager.ArchiveStatus.UNLOCKED;
-        return credentials;
+        return Credentials.createFromSecureContent(archiveDetails.credentials, password)
+            .then((credentials) => {
+                if (!credentials) {
+                    return Promise.reject(new Error("Failed unlocking credentials: " + name));
+                }
+                archiveDetails.credentials = credentials;
+                archiveDetails.password = password;
+                archiveDetails.status = ArchiveManager.ArchiveStatus.UNLOCKED;
+                return credentials;
+            });
     };
 
     ArchiveManager.ArchiveStatus = {

@@ -28,30 +28,44 @@ describe("ArchiveManager", function() {
         expect(creds.model.get("type")).toBe("webdav");
     });
 
-    it("locks and unlocks credentials", function() {
+    it("locks and unlocks credentials", function(done) {
         archiveManager.addCredentials("custom", credentials, "masterPa55");
         expect(archiveManager.isLocked("custom")).toBe(false);
-        archiveManager.lock("custom");
-        expect(archiveManager.isLocked("custom")).toBe(true);
-        expect(archiveManager._archives["custom"].password).not.toBeDefined();
+        archiveManager.lock("custom")
+            .then(function() {
+                expect(archiveManager.isLocked("custom")).toBe(true);
+                expect(archiveManager._archives["custom"].password).not.toBeDefined();
+                (done)();
+            });
     });
 
-    it("saves and loads state", function() {
+    it("saves and loads state", function(done) {
         archiveManager.addCredentials("custom", credentials, "masterPa55");
-        archiveManager.saveState();
-        archiveManager.loadState();
-        expect(archiveManager.isLocked("custom")).toBe(true);
+        archiveManager.saveState()
+            .then(function() {
+                archiveManager.loadState();
+                expect(archiveManager.isLocked("custom")).toBe(true);
+                (done)();
+            });
     });
 
-    it("loads and unlocks", function() {
+    it("loads and unlocks", function(done) {
         archiveManager.addCredentials("custom", credentials, "masterPa55");
-        archiveManager.saveState();
-        archiveManager.loadState();
-        var creds = archiveManager.unlock("custom", "masterPa55");
-        expect(archiveManager.isLocked("custom")).toBe(false);
-        expect(creds.model.get("username")).toBe("abc123");
-        expect(creds.model.get("password")).toBe("1$55*");
-        expect(creds.model.get("type")).toBe("webdav");
+        archiveManager.saveState()
+            .then(function() {
+                archiveManager.loadState();
+                return archiveManager.unlock("custom", "masterPa55")
+                    .then(function(creds) {
+                        expect(archiveManager.isLocked("custom")).toBe(false);
+                        expect(creds.model.get("username")).toBe("abc123");
+                        expect(creds.model.get("password")).toBe("1$55*");
+                        expect(creds.model.get("type")).toBe("webdav");
+                        (done)();
+                    });
+            })
+            .catch(function(err) {
+                console.error(err);
+            });
     });
 
 });
