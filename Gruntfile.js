@@ -6,13 +6,19 @@ module.exports = function(grunt) {
 
         jasmine: {
             buttercup_raw: {
-                src: "build/buttercup.js",
+                src: [
+                    "node_modules/es6-promise/dist/es6-promise.min.js",
+                    "build/buttercup.js"
+                ],
                 options: {
                     specs: "tests/**/*.js"
                 }
             },
             buttercup_min: {
-                src: "build/buttercup.min.js",
+                src: [
+                    "node_modules/es6-promise/dist/es6-promise.min.js",
+                    "build/buttercup.min.js"
+                ],
                 options: {
                     specs: "tests/**/*.js"
                 }
