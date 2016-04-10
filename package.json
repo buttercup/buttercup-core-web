@@ -4,7 +4,7 @@
   "description": "Buttercup core library for the web.",
   "main": "source/index.js",
   "scripts": {
-    "test": "npm run build && npm run nodeunit",
+    "test": "npm run nodeunit",
     "postinstall": "npm run build",
     "build": "webpack && npm run minify",
     "minify": "uglifyjs --compress --screw-ie8 --output build/buttercup.min.js -- build/buttercup.js",

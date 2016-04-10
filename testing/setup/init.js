@@ -4,8 +4,11 @@ var fs = require("fs"),
     path = require("path"),
     webdriver = require("selenium-webdriver");
 
+var browser = process.env.WEBDRIVER_BROWSER ? process.env.WEBDRIVER_BROWSER : "chrome";
+console.log("Running tests using: " + browser);
+
 GLOBAL.driver = (new webdriver.Builder())
-    .withCapabilities(webdriver.Capabilities.chrome())
+    .withCapabilities({ browserName: browser })
     .build();
 
 var page = '<html><head><title>Testing</title><script src="buttercup.js"></script></html>',
