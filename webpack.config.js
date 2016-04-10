@@ -36,7 +36,8 @@ module.exports = {
 
     resolve: {
         alias: {
-            crypto: require.resolve("crypto-browserify")
+            crypto: require.resolve("crypto-browserify"),
+			__buttercup_web: path.resolve(__dirname, './source')
         },
         fallback: [path.join(__dirname, 'node_modules')]
     },
