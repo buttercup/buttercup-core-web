@@ -8,6 +8,7 @@ module.exports = function(grunt) {
             buttercup_raw: {
                 src: [
                     "node_modules/es6-promise/dist/es6-promise.min.js",
+                    "node_modules/text-encoding/lib/encoding.js",
                     "build/buttercup.js"
                 ],
                 options: {
@@ -17,6 +18,7 @@ module.exports = function(grunt) {
             buttercup_min: {
                 src: [
                     "node_modules/es6-promise/dist/es6-promise.min.js",
+                    "node_modules/text-encoding/lib/encoding.js",
                     "build/buttercup.min.js"
                 ],
                 options: {
