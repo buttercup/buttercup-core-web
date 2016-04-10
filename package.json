@@ -8,7 +8,7 @@
     "postinstall": "npm run build",
     "build": "webpack && npm run minify",
     "minify": "uglifyjs --compress --screw-ie8 --output build/buttercup.min.js -- build/buttercup.js",
-    "nodeunit": "nodeunit testing/setup/init.js testing/*.spec.js testing/setup/close.js"
+    "nodeunit": "node testing/setup/run.js"
   },
   "repository": {
     "type": "git",
