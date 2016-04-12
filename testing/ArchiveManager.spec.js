@@ -1,7 +1,7 @@
 var driver = GLOBAL.driver;
 
 function handleError(err) {
-    console.error(err);
+    console.log("Error", err);
 }
 
 module.exports = {
@@ -54,8 +54,8 @@ module.exports = {
                             wasLocked: wasLocked
                         });
                     })
-                    .catch(function() {
-                        (callback)({});
+                    .catch(function(err) {
+                        (callback)(err.message);
                     });
             }
         )
