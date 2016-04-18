@@ -1,18 +1,18 @@
 sudo: true
 before_install:
- - export CHROME_BIN=/usr/bin/google-chrome
+# - export CHROME_BIN=/usr/bin/google-chrome
  - export DISPLAY=:99.0
  - sh -e /etc/init.d/xvfb start
- - sudo apt-get update
- - sudo apt-get install -y libappindicator1 fonts-liberation
- - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
- - sudo dpkg -i google-chrome*.deb
+# - sudo apt-get update
+# - sudo apt-get install -y libappindicator1 fonts-liberation
+# - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+# - sudo dpkg -i google-chrome*.deb
 before_script:
   # - "export DISPLAY=:99.0"
   # - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
 env:
-  - WEBDRIVER_BROWSER="chrome"
+  - WEBDRIVER_BROWSER="firefox"
 #before_script:
 #  - export NODE_PATH=./node_modules/buttercup/node_modules/:./node_modules/:$NODE_PATH
 language: node_js
