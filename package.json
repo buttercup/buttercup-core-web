@@ -38,7 +38,7 @@
     "webpack": "^1.12.14"
   },
   "devDependencies": {
-    "chromedriver": "^2.21.2",
+    "jasdriver": "^0.2.1",
     "nodeunit": "^0.9.1",
     "selenium-webdriver": "^2.53.1"
   }
