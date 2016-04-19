@@ -7,5 +7,5 @@ module.exports = {
         __dirname + "/build/buttercup.js",
         __dirname + "/tests"
     ],
-    webdriverBrowser: "firefox"
+    webdriverBrowser: "chrome"
 };
