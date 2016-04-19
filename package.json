@@ -40,7 +40,6 @@
   },
   "devDependencies": {
     "jasdriver": "^0.2.1",
-    "nodeunit": "^0.9.1",
-    "selenium-webdriver": "^2.53.1"
+    "nodeunit": "^0.9.1"
   }
 }
