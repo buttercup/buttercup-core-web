@@ -6,9 +6,10 @@
   "scripts": {
     "test2": "npm run nodeunit",
     "jasdriver": "node ./node_modules/.bin/jasdriver",
-    "test": "npm run build && npm run jasdriver",
+    "test": "npm run dev && npm run jasdriver",
     "postinstall": "npm run build",
     "build": "webpack && npm run minify",
+    "dev": "webpack",
     "minify": "uglifyjs --compress --screw-ie8 --output build/buttercup.min.js -- build/buttercup.js",
     "nodeunit": "node testing/setup/run.js"
   },
