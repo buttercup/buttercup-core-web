@@ -16,7 +16,7 @@ before_script:
 #before_script:
 #  - export NODE_PATH=./node_modules/buttercup/node_modules/:./node_modules/:$NODE_PATH
 script:
-  - npm test
+  - npm run test-ci
 language: node_js
 node_js:
   - "4.3"
