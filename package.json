@@ -1,12 +1,15 @@
 {
   "name": "buttercup-web",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Buttercup core library for the web.",
   "main": "source/index.js",
   "scripts": {
-    "test": "npm run nodeunit",
+    "test2": "npm run nodeunit",
+    "jasdriver": "node ./node_modules/.bin/jasdriver",
+    "test": "npm run dev && npm run jasdriver",
     "postinstall": "npm run build",
     "build": "webpack && npm run minify",
+    "dev": "webpack",
     "minify": "uglifyjs --compress --screw-ie8 --output build/buttercup.min.js -- build/buttercup.js",
     "nodeunit": "node testing/setup/run.js"
   },
@@ -37,8 +40,7 @@
     "webpack": "^1.12.14"
   },
   "devDependencies": {
-    "chromedriver": "^2.21.2",
-    "nodeunit": "^0.9.1",
-    "selenium-webdriver": "^2.53.1"
+    "jasdriver": "^0.2.1",
+    "nodeunit": "^0.9.1"
   }
 }
