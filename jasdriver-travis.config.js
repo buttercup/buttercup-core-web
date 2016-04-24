@@ -9,7 +9,7 @@ module.exports = [
             __dirname + "/tests"
         ],
         webdriverBrowser: "chrome"
-    },
+    }/*,
     {
         //closeDriverOnFinish: false,
         //exitOnFinish: false,
@@ -18,5 +18,5 @@ module.exports = [
             __dirname + "/tests"
         ],
         webdriverBrowser: "firefox"
-    }
+    }*/
 ];
