@@ -2,6 +2,19 @@
 
     "use strict";
 
+    const subtleCrypto = window.crypto.subtle;
+
+    function addHexSupportToArrayBuffer(arrayBuffer) {
+        let _toString = arrayBuffer.toString || function() {};
+        arrayBuffer.toString = function(mode) {
+            if (mode === "hex") {
+                return arrayBufferToHexString(arrayBuffer);
+            }
+            return _toString.call(arrayBuffer, mode);
+        };
+        return arrayBuffer;
+    }
+
     function arrayBufferToHexString(arrayBuffer) {
         var byteArray = new Uint8Array(arrayBuffer);
         var hexString = "";
@@ -17,6 +30,19 @@
         return hexString;
     }
 
+    function checkBrowserSupport() {
+        if (!window.TextEncoder || !window.TextDecoder) {
+            throw new Error("TextEncoder is not available");
+        }
+    }
+
+    function joinBuffers(buffer1, buffer2) {
+        var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);
+        tmp.set(new Uint8Array(buffer1), 0);
+        tmp.set(new Uint8Array(buffer2), buffer1.byteLength);
+        return tmp.buffer;
+    }
+
     function stringToArrayBuffer(string) {
         var encoder = new TextEncoder("utf-8");
         return encoder.encode(string);
@@ -25,36 +51,47 @@
     var lib = module.exports = {
 
         deriveKeyFromPassword: function(password, salt, rounds, bits/*, algorithm*/) {
-            if (!window.TextEncoder || !window.TextDecoder) {
-                throw new Error("TextEncoder is not available");
-            }
-            return window.crypto.subtle.importKey(
-                   "raw",
-                   stringToArrayBuffer("passw0rd"),
-                   {"name": "PBKDF2"},
-                   false,
-                   ["deriveKey"]
-               )
-               .then(function(baseKey) {
-                   return window.crypto.subtle.deriveKey(
-                        {
-                            "name": "PBKDF2",
-                            "salt": stringToArrayBuffer(salt),
-                            "iterations": rounds,
-                            "hash": "SHA-256"
-                        },
-                        baseKey,
-                        {"name": "AES-CBC", "length": bits},
+            checkBrowserSupport();
+
+            let params = {
+                    "name": "PBKDF2",
+                    "hash": "SHA-256",
+                    "salt": stringToArrayBuffer(salt),
+                    "iterations": rounds
+                },
+                bytes = bits / 8,
+                keysLen = bytes / 2;
+
+            return subtleCrypto.importKey(
+                    "raw",
+                    stringToArrayBuffer(password),
+                    {"name": "PBKDF2"},
+                    true,
+                    ["deriveBits"]
+                )
+                .then((keyData) => subtleCrypto.deriveBits(params, keyData, bits))
+                .then((derivedData) => Promise.all([
+                    subtleCrypto.importKey(
+                        "raw",
+                        derivedData.slice(0, keysLen),
+                        "AES-CBC",
                         true,
                         ["encrypt", "decrypt"]
-                    );
-               })
-               .then(function(aesKey) {
-                   return window.crypto.subtle.exportKey("raw", aesKey);
-               });
-            //    .then(function(keyBytes) {
-            //        return arrayBufferToHexString(keyBytes);
-            //    })
+                    ),
+                    subtleCrypto.importKey(
+                        "raw",
+                        derivedData.slice(keysLen, keysLen * 2),
+                        "AES-CBC",
+                        true,
+                        ["encrypt", "decrypt"]
+                    )
+                ]))
+                .then((aesKeys) => Promise.all([
+                	subtleCrypto.exportKey("raw", aesKeys[0]),
+                    subtleCrypto.exportKey("raw", aesKeys[1])
+                ]))
+                .then((rawKeys) => joinBuffers(rawKeys[0], rawKeys[1]))
+                .then((arrBuff) => addHexSupportToArrayBuffer(arrBuff)); // HAXOR
         },
 
         patchCorePBKDF: function() {

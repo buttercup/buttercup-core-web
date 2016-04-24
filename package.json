@@ -10,7 +10,7 @@
     "test-ci": "npm run jasdriver jasdriver-travis.config.js",
     "postinstall": "npm run build",
     "build": "webpack && npm run minify",
-    "dev": "webpack",
+    "dev": "webpack --progress",
     "minify": "uglifyjs --compress --screw-ie8 --output build/buttercup.min.js -- build/buttercup.js",
     "nodeunit": "node testing/setup/run.js"
   },
