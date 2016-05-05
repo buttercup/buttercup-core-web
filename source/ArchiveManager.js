@@ -6,10 +6,17 @@
         Credentials = Buttercup.Credentials,
         StorageInterface = require("__buttercup_web/StorageInterface.js");
 
+    /**
+     * Archive Manager - manages a set of archives for the browser
+     * @class ArchiveManager
+     */
     var ArchiveManager = module.exports = function() {
         this._archives = {};
     };
 
+    /**
+     * Add credentials to the manager
+     */
     ArchiveManager.prototype.addCredentials = function(name, credentials, password) {
         this._archives[name] = {
             status: ArchiveManager.ArchiveStatus.UNLOCKED,

@@ -5,7 +5,7 @@ Web-based build of the Buttercup core library.
 
 [![Buttercup-web](https://nodei.co/npm/buttercup-web.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/buttercup-web)
 
-For the most part, this library inherits all functionality from [Buttercup core](https://github.com/buttercup-pw/buttercup-core).
+For the most part, this library inherits all functionality from [Buttercup core](https://github.com/buttercup-pw/buttercup-core) ([API](https://github.com/buttercup-pw/buttercup-core/blob/master/doc/api.md)).
 
 ## Cryptography
 The core-web library utilises current technology to encrypt and hash and very high speed, and this is supported by only the [newest browsers](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto#Browser_compatibility).
