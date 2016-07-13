@@ -1,8 +1,8 @@
 {
   "name": "buttercup-web",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Buttercup core library for the web.",
-  "main": "source/index.js",
+  "main": "build/buttercup.js",
   "scripts": {
     "test2": "npm run nodeunit",
     "jasdriver": "node ./node_modules/.bin/jasdriver",
