@@ -41,7 +41,7 @@
     "webpack": "^1.12.14"
   },
   "devDependencies": {
-    "jasdriver": "^0.4.0",
+    "jasdriver": "^0.4.3",
     "nodeunit": "^0.9.1"
   }
 }
