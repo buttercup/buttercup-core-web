@@ -29,14 +29,14 @@ describe("ArchiveManager", function() {
         it("fetches similar URLs", function() {
             var currentURL = "http://www.example.com/test-area/index.html#testing",
                 entries = ArchiveTools.getEntriesForURL(archive, currentURL);
-            expect(entries.length).toBe(2);
+            expect(entries.length).to.equal(2);
         });
 
         it("fetches a single URL", function() {
             var currentURL = "https://login.amazing.com/entry-portal",
                 entries = ArchiveTools.getEntriesForURL(archive, currentURL);
-            expect(entries.length).toBe(1);
-            expect(entries[0].getProperty("username")).toBe("entry3");
+            expect(entries.length).to.equal(1);
+            expect(entries[0].getProperty("username")).to.equal("entry3");
         });
 
     });
