@@ -10,7 +10,7 @@ describe("Buttercup.vendor", function() {
                     return hash.key.toString("hex");
                 })
                 .then(function(hash) {
-                    expect(hash).toBe("3206e36d28a3139def5037d1a0d25b4eb12cd8a70f715517206e7f07f8f8dd2b");
+                    expect(hash).to.equal("3206e36d28a3139def5037d1a0d25b4eb12cd8a70f715517206e7f07f8f8dd2b");
                     (done)();
                 })
                 .catch(function(err) {
@@ -22,7 +22,7 @@ describe("Buttercup.vendor", function() {
             window.Buttercup.vendor.iocane.derivation.deriveFromPassword("some-password", "123salt", 250000)
                 .then((hash) => hash.key.toString("hex"))
                 .then(function(hash) {
-                    expect(hash).toBe("c6aabb1f7cf5a74f39d74a72e4b5708407de63177deddf86f930dc0197100acd");
+                    expect(hash).to.equal("c6aabb1f7cf5a74f39d74a72e4b5708407de63177deddf86f930dc0197100acd");
                 })
                 .then(done)
                 .catch(function(err) {

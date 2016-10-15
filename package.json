@@ -1,18 +1,16 @@
 {
   "name": "buttercup-web",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Buttercup core library for the web.",
   "main": "build/buttercup.js",
   "scripts": {
-    "test2": "npm run nodeunit",
-    "jasdriver": "node ./node_modules/.bin/jasdriver",
-    "test": "npm run dev && npm run jasdriver",
-    "test-ci": "npm run jasdriver jasdriver-travis.config.js",
+    "test": "npm run build && npm run karma",
+    "test:ci": "npm test",
     "postinstall": "npm run build",
     "build": "webpack && npm run minify",
+    "karma": "karma start",
     "dev": "webpack --progress",
-    "minify": "uglifyjs --compress --screw-ie8 --output build/buttercup.min.js -- build/buttercup.js",
-    "nodeunit": "node testing/setup/run.js"
+    "minify": "uglifyjs --compress --screw-ie8 --output build/buttercup.min.js -- build/buttercup.js"
   },
   "repository": {
     "type": "git",
@@ -34,14 +32,20 @@
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
-    "buttercup": "~0.20.1",
+    "buttercup": "~0.24.0",
     "crypto-browserify": "^3.11.0",
     "json-loader": "^0.5.4",
     "uglifyjs": "^2.4.10",
     "webpack": "^1.12.14"
   },
   "devDependencies": {
-    "jasdriver": "^0.4.3",
-    "nodeunit": "^0.9.1"
+    "chai": "^3.5.0",
+    "karma": "^1.3.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-cli": "^1.0.1",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-mocha": "^1.2.0",
+    "mocha": "^3.1.2"
   }
 }
