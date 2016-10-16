@@ -9,3 +9,5 @@ For the most part, this library inherits all functionality from [Buttercup core]
 
 ## Cryptography
 The core-web library utilises current technology to encrypt and hash and very high speed, and this is supported by only the [newest browsers](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto#Browser_compatibility).
+
+Buttercup-core-web, like Buttercup-core, uses [iocane](https://github.com/perry-mitchell/iocane) for text encryption and decryption. iocane uses 256bit AES encryption to securely store password archives, and is completely compatible with most modern browsers.
