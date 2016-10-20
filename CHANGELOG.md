@@ -1,5 +1,10 @@
 # Buttercup core-web changelog
 
+## v0.10.4
+_2016-10-20_
+
+ * Fix publishing (no files included / babel not run)
+
 ## v0.10.0
 _2016-10-16_
 
