@@ -1,12 +1,12 @@
 {
   "name": "buttercup-web",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "description": "Buttercup core library for the web.",
-  "main": "build/buttercup.js",
+  "main": "build/buttercup.min.js",
   "scripts": {
     "test": "npm run build && npm run karma",
     "test:ci": "npm test",
-    "postinstall": "npm run build",
+    "prepublish": "npm run build",
     "build": "webpack && npm run minify",
     "karma": "karma start",
     "dev": "webpack --progress",
