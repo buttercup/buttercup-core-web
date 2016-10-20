@@ -1,6 +1,6 @@
 {
   "name": "buttercup-web",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "Buttercup core library for the web.",
   "main": "build/buttercup.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "build": "webpack && npm run minify",
     "karma": "karma start",
     "dev": "webpack --progress",
-    "minify": "uglifyjs --compress --screw-ie8 --output build/buttercup.min.js -- build/buttercup.js"
+    "minify": "uglifyjs --compress --screw-ie8 --output ./build/buttercup.min.js -- ./build/buttercup.js"
   },
   "repository": {
     "type": "git",

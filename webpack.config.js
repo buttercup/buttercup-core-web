@@ -8,13 +8,7 @@ const paths = [
 
 module.exports = {
 
-    entry: [
-        path.resolve(__dirname, "./source/index.js")
-    ],
-
-    resolveLoader: {
-        root: path.join(__dirname, "node_modules")
-    },
+    entry: path.resolve(__dirname, "./source/index.js"),
 
     module: {
         loaders: [
@@ -37,8 +31,8 @@ module.exports = {
     },
 
     output: {
-        path: __dirname,
-		filename: "./build/buttercup.js"
+        path: path.resolve(__dirname, "./build"),
+		filename: "buttercup.js"
     },
 
     resolve: {
