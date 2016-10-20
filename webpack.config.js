@@ -14,13 +14,11 @@ module.exports = {
         loaders: [
             {
                 test: /\.json$/i,
-                loader: "json-loader",
-                include: paths
+                loader: "json-loader"
             },
             {
                 test: /\.js$/,
-                loader: "babel-loader",
-                include: paths
+                loader: "babel-loader"
             }
         ]
     },
