@@ -1,6 +1,6 @@
 {
   "name": "buttercup-web",
-  "version": "0.10.4",
+  "version": "0.11.0",
   "description": "Buttercup core library for the web.",
   "main": "build/buttercup.min.js",
   "scripts": {
@@ -36,7 +36,7 @@
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
-    "buttercup": "~0.25.0",
+    "buttercup": "~0.27.0",
     "crypto-browserify": "^3.11.0",
     "json-loader": "^0.5.4",
     "uglifyjs": "^2.4.10",
