@@ -1,5 +1,10 @@
 # Buttercup core-web changelog
 
+## v0.13.0
+_2016-12-03_
+
+ * Credentials update (meta)
+
 ## v0.12.0
 _2016-11-08_
 
