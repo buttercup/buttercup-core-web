@@ -9,7 +9,7 @@
     "prepublish": "npm run build",
     "build": "webpack && npm run minify",
     "karma": "karma start",
-    "dev": "webpack --progress",
+    "dev": "webpack --progress --watch",
     "minify": "uglifyjs --compress --screw-ie8 --output ./build/buttercup.min.js -- ./build/buttercup.js"
   },
   "files": [
