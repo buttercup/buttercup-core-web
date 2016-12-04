@@ -32,6 +32,15 @@
         return this._archives[name].credentials;
     };
 
+    ArchiveManager.prototype.getCredentialStates = function() {
+        return Object
+            .keys(this._archives)
+            .map(name => ({
+                name,
+                locked: this.isLocked(name)
+            }));
+    };
+
     ArchiveManager.prototype.isLocked = function(name) {
         return this._archives[name].status === ArchiveManager.ArchiveStatus.LOCKED;
     };
