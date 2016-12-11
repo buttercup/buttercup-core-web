@@ -1,5 +1,10 @@
 # Buttercup core-web changelog
 
+## v0.14.0
+_2016-12-11_
+
+ * Credentials state output
+
 ## v0.13.0
 _2016-12-03_
 
