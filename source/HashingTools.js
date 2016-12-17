@@ -61,12 +61,11 @@
                 },
                 bytes = bits / 8,
                 keysLen = bytes / 2;
-
             return subtleCrypto.importKey(
                     "raw",
                     stringToArrayBuffer(password),
                     {"name": "PBKDF2"},
-                    true,
+                    false, // not extractable
                     ["deriveBits"]
                 )
                 .then((keyData) => subtleCrypto.deriveBits(params, keyData, bits))

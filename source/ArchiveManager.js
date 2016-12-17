@@ -60,7 +60,8 @@
         var details = this._archives[name];
         if (details.status === ArchiveManager.ArchiveStatus.UNLOCKED) {
             details.status = ArchiveManager.ArchiveStatus.LOCKED;
-            return details.credentials.convertToSecureContent(details.password)
+            return details.credentials
+                .convertToSecureContent(details.password)
                 .then(function(secureContent) {
                     details.credentials = secureContent;
                     delete details.password;
@@ -73,7 +74,8 @@
         var packet = {
             archives: {}
         };
-        return Promise.all(
+        return Promise
+            .all(
                 Object.keys(this._archives).map((name) => {
                     let archiveDetails = this._archives[name];
                     return (this.isLocked(name)) ?
@@ -94,7 +96,8 @@
         if (!this.isLocked(name)) {
             return Promise.resolve(archiveDetails);
         }
-        return Credentials.createFromSecureContent(archiveDetails.credentials, password)
+        return Credentials
+            .createFromSecureContent(archiveDetails.credentials, password)
             .then((credentials) => {
                 if (!credentials) {
                     return Promise.reject(new Error("Failed unlocking credentials: " + name));

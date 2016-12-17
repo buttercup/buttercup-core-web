@@ -12,6 +12,9 @@
 
     HashingTools.patchCorePBKDF();
 
+    let sessionArchiveManager = new ArchiveManager();
+    sessionArchiveManager.loadState();
+
     // END initialisation
 
     // Export:
@@ -20,7 +23,7 @@
 
 		ArchiveManager: ArchiveManager,
 
-		archiveManager: new ArchiveManager(),
+		archiveManager: sessionArchiveManager,
 
         ArchiveTools: ArchiveTools,
 

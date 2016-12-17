@@ -1,5 +1,11 @@
 # Buttercup core-web changelog
 
+## v0.14.1
+_2016-12-17_
+
+ * Update `SubtleCrypto`'s `importKey` to use `extractable: false` (fix for Chrome)
+ * Run `loadState` on init for archive manager
+
 ## v0.14.0
 _2016-12-11_
 
