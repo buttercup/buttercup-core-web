@@ -4,114 +4,147 @@
 
     var Buttercup = require("buttercup"),
         Credentials = Buttercup.Credentials,
+        DatasourceAdapter = Buttercup.DatasourceAdapter,
+        SharedWorkspace = Buttercup.SharedWorkspace,
         StorageInterface = require("__buttercup_web/StorageInterface.js");
 
     /**
      * Archive Manager - manages a set of archives for the browser
      * @class ArchiveManager
      */
-    var ArchiveManager = module.exports = function() {
-        this._archives = {};
-    };
+    class ArchiveManager {
 
-    /**
-     * Add credentials to the manager
-     */
-    ArchiveManager.prototype.addCredentials = function(name, credentials, password) {
-        this._archives[name] = {
-            status: ArchiveManager.ArchiveStatus.UNLOCKED,
-            credentials: credentials,
-            password: password
-        };
-    };
-
-    ArchiveManager.prototype.getCredentials = function(name) {
-        if (this.isLocked(name)) {
-            throw new Error("Credentials are locked");
+        constructor() {
+            this._archives = {};
         }
-        return this._archives[name].credentials;
-    };
 
-    ArchiveManager.prototype.getCredentialStates = function() {
-        return Object
-            .keys(this._archives)
-            .map(name => ({
+        get archives() {
+            return this._archives;
+        }
+
+        get displayList() {
+            let archives = this.archives;
+            return Object.keys(archives).map(name => ({
                 name,
-                locked: this.isLocked(name)
+                status: archives[name].status
             }));
-    };
+        }
 
-    ArchiveManager.prototype.isLocked = function(name) {
-        return this._archives[name].status === ArchiveManager.ArchiveStatus.LOCKED;
-    };
-
-    ArchiveManager.prototype.loadState = function() {
-        this._archives = {};
-        var loadedData = StorageInterface.getData("archiveManager", { archives: {} });
-        for (var name in loadedData.archives) {
+        addArchive(name, workspace, credentials, masterPassword) {
+            if (this._archives[name]) {
+                throw new Error(`Archive already exists: ${name}`);
+            }
             this._archives[name] = {
-                status: ArchiveManager.ArchiveStatus.LOCKED,
-                credentials: loadedData.archives[name]
+                status: ArchiveManager.ArchiveStatus.UNLOCKED,
+                workspace,
+                credentials,
+                password: masterPassword
             };
         }
-    };
 
-    ArchiveManager.prototype.lock = function(name) {
-        var details = this._archives[name];
-        if (details.status === ArchiveManager.ArchiveStatus.UNLOCKED) {
-            details.status = ArchiveManager.ArchiveStatus.LOCKED;
+        isLocked(name) {
+            if (!this._archives[name]) {
+                throw new Error(`Archive not found: ${name}`);
+            }
+            return this._archives[name].status === ArchiveManager.ArchiveStatus.LOCKED;
+        }
+
+        loadState() {
+            this._archives = {};
+            var loadedData = StorageInterface.getData("archiveManager", { archives: {} });
+            for (var name in loadedData.archives) {
+                this._archives[name] = {
+                    status: ArchiveManager.ArchiveStatus.LOCKED,
+                    credentials: loadedData.archives[name]
+                };
+            }
+        }
+
+        lock(name) {
+            if (!this._archives[name]) {
+                throw new Error(`Archive not found: ${name}`);
+            }
+            if (this.isLocked(name)) {
+                throw new Error(`Archive already locked: ${name}`);
+            }
+            let details = this._archives[name];
+            details.status = ArchiveManager.ArchiveStatus.PROCESSING;
             return details.credentials
                 .convertToSecureContent(details.password)
-                .then(function(secureContent) {
-                    details.credentials = secureContent;
+                .then(function(encContent) {
+                    details.credentials = encContent;
+                    delete details.workspace;
                     delete details.password;
+                    details.status = ArchiveManager.ArchiveStatus.LOCKED;
                 });
         }
-        return Promise.resolve();
-    };
 
-    ArchiveManager.prototype.saveState = function() {
-        var packet = {
-            archives: {}
-        };
-        return Promise
-            .all(
-                Object.keys(this._archives).map((name) => {
-                    let archiveDetails = this._archives[name];
-                    return (this.isLocked(name)) ?
-                        Promise.resolve() :
+        saveState() {
+            var packet = {
+                    archives: {}
+                },
+                delayed = [Promise.resolve()]
+            Object.keys(this._archives).forEach((name) => {
+                let archiveDetails = this._archives[name];
+                if (archiveDetails.status === ArchiveManager.ArchiveStatus.LOCKED) {
+                    packet.archives[name] = archiveDetails.credentials;
+                } else {
+                    delayed.push(
                         archiveDetails.credentials
                             .convertToSecureContent(archiveDetails.password)
-                            .then((content) => {
+                            .then(function(content) {
                                 packet.archives[name] = content;
-                            });
-                })
-            ).then(function() {
-                StorageInterface.setData("archiveManager", packet);
-            });
-    };
-
-    ArchiveManager.prototype.unlock = function(name, password) {
-        var archiveDetails = this._archives[name];
-        if (!this.isLocked(name)) {
-            return Promise.resolve(archiveDetails);
-        }
-        return Credentials
-            .createFromSecureContent(archiveDetails.credentials, password)
-            .then((credentials) => {
-                if (!credentials) {
-                    return Promise.reject(new Error("Failed unlocking credentials: " + name));
+                            })
+                    );
                 }
-                archiveDetails.credentials = credentials;
-                archiveDetails.password = password;
-                archiveDetails.status = ArchiveManager.ArchiveStatus.UNLOCKED;
-                return credentials;
             });
-    };
+            return Promise
+                .all(delayed)
+                .then(function() {
+                    StorageInterface.setData("archiveManager", packet);
+                });
+        }
+
+        unlock(name, password) {
+            var archiveDetails = this._archives[name];
+            if (!this.isLocked(name)) {
+                return Promise.resolve(archiveDetails);
+            }
+            archiveDetails.status = ArchiveManager.ArchiveStatus.PROCESSING;
+            return Credentials
+                .createFromSecureContent(archiveDetails.credentials, password)
+                .then((credentials) => {
+                    if (!credentials) {
+                        return Promise.reject(new Error("Failed unlocking credentials: " + name));
+                    }
+                    archiveDetails.credentials = credentials;
+                    archiveDetails.password = password;
+                    let datasourceInfo = JSON.parse(credentials.getMeta(Credentials.DATASOURCE_META)),
+                        ds = DatasourceAdapter.objectToDatasource(datasourceInfo, credentials);
+                    if (!ds) {
+                        throw new Error("Failed creating datasource - possible corrupt credentials");
+                    }
+                    return Promise.all([
+                        ds.load(password),
+                        Promise.resolve(ds)
+                    ]);
+                })
+                .then(([archive, datasource] = []) => {
+                    let workspace = new SharedWorkspace();
+                    workspace.setPrimaryArchive(archive, datasource, password);
+                    archiveDetails.workspace = workspace;
+                    archiveDetails.status = ArchiveManager.ArchiveStatus.UNLOCKED;
+                });
+        }
+
+    }
 
     ArchiveManager.ArchiveStatus = {
         LOCKED: "locked",
-        UNLOCKED: "unlocked"
+        UNLOCKED: "unlocked",
+        PROCESSING: "processing"
     };
+
+    module.exports = ArchiveManager;
 
 })(module);
