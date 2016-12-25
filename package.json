@@ -9,9 +9,9 @@
     "dev": "webpack --progress --watch",
     "karma": "karma start",
     "prepublish": "npm run build",
-    "test": "npm run build && npm run karma -- --single-run",
+    "test": "npm run karma -- --single-run",
     "test:ci": "npm test",
-    "test:watch": "npm run build && npm run karma"
+    "test:watch": "npm run karma"
   },
   "files": [
     "build/buttercup.js",
