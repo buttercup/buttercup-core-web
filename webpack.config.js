@@ -6,43 +6,58 @@ const paths = [
     /buttercup/
 ];
 
-module.exports = {
-
-    entry: path.resolve(__dirname, "./source/index.js"),
-
-    module: {
-        loaders: [
-            {
-                test: /\.json$/i,
-                loader: "json-loader"
-            },
-            {
-                test: /\.js$/,
-                loader: "babel"
-            }
-        ]
+const entry = path.resolve(__dirname, "./source/index.js");
+const loaders = [
+    {
+        test: /\.json$/i,
+        loader: "json-loader"
     },
-
-    node: {
-        crypto: false,
-        fs: "empty"
-    },
-
-    output: {
-        path: path.resolve(__dirname, "./build"),
-		filename: "buttercup.js"
-    },
-
-    resolve: {
-        alias: {
-            crypto: require.resolve("crypto-browserify"),
-			__buttercup_web: path.resolve(__dirname, './source')
-        },
-        fallback: [path.join(__dirname, 'node_modules')]
-    },
-
-    stats: {
-		colors: true
-	}
-
+    {
+        test: /\.js$/,
+        loader: "babel"
+    }
+];
+const node = {
+    crypto: false,
+    fs: "empty"
 };
+const resolve = {
+    alias: {
+        crypto:             require.resolve("crypto-browserify"),
+        __buttercup_web:    path.resolve(__dirname, './source')
+    },
+    fallback: [ path.join(__dirname, 'node_modules') ]
+};
+const stats = { colors: true };
+
+module.exports = [
+    {
+        entry,
+        module: { loaders },
+        node,
+        output: {
+            path:       path.resolve(__dirname, "./build"),
+            filename:   "buttercup.js"
+        },
+        resolve,
+        stats
+    },
+    {
+        entry,
+        module: { loaders },
+        node,
+        output: {
+            path:       path.resolve(__dirname, "./build"),
+            filename:   "buttercup.min.js"
+        },
+        plugins: [
+            new webpack.optimize.UglifyJsPlugin({
+                compress: {
+                    warnings: false
+                }
+            })
+        ],
+        resolve,
+        stats
+    }
+];

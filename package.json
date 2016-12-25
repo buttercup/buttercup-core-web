@@ -4,13 +4,14 @@
   "description": "Buttercup core library for the web.",
   "main": "build/buttercup.min.js",
   "scripts": {
-    "test": "npm run build && npm run karma",
-    "test:ci": "npm test",
-    "prepublish": "npm run build",
-    "build": "webpack && npm run minify",
-    "karma": "karma start",
+    "build": "npm run clean && webpack",
+    "clean": "rimraf build/*.*",
     "dev": "webpack --progress --watch",
-    "minify": "uglifyjs --compress --screw-ie8 --output ./build/buttercup.min.js -- ./build/buttercup.js"
+    "karma": "karma start",
+    "prepublish": "npm run build",
+    "test": "npm run build && npm run karma -- --single-run",
+    "test:ci": "npm test",
+    "test:watch": "npm run build && npm run karma"
   },
   "files": [
     "build/buttercup.js",
@@ -39,6 +40,7 @@
     "buttercup": "0.30.0-rc1",
     "crypto-browserify": "~3.11.0",
     "json-loader": "~0.5.4",
+    "rimraf": "^2.5.4",
     "uglifyjs": "~2.4.10",
     "webpack": "~1.13.3"
   },
