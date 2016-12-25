@@ -14,8 +14,9 @@
      */
     class ArchiveManager {
 
-        constructor() {
+        constructor(storage) {
             this._archives = {};
+            this._storage = storage || StorageInterface;
         }
 
         get archives() {
@@ -28,6 +29,10 @@
                 name,
                 status: archives[name].status
             }));
+        }
+
+        get storage() {
+            return this._storage;
         }
 
         get unlockedArchives() {
@@ -58,7 +63,7 @@
 
         loadState() {
             this._archives = {};
-            var loadedData = StorageInterface.getData("archiveManager", { archives: {} });
+            var loadedData = this.storage.getData("archiveManager", { archives: {} });
             for (var name in loadedData.archives) {
                 this._archives[name] = {
                     status: ArchiveManager.ArchiveStatus.LOCKED,
@@ -107,8 +112,8 @@
             });
             return Promise
                 .all(delayed)
-                .then(function() {
-                    StorageInterface.setData("archiveManager", packet);
+                .then(() => {
+                    this.storage.setData("archiveManager", packet);
                 });
         }
 
