@@ -30,6 +30,13 @@
             }));
         }
 
+        get unlockedArchives() {
+            let archives = this.archives;
+            return Object.keys(archives)
+                .map(name => Object.assign({ name }, archives[name]))
+                .filter(details => details.status === ArchiveManager.ArchiveStatus.UNLOCKED);
+        }
+
         addArchive(name, workspace, credentials, masterPassword) {
             if (this._archives[name]) {
                 throw new Error(`Archive already exists: ${name}`);
