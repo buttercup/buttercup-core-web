@@ -50,6 +50,14 @@
 
     var lib = module.exports = {
 
+        /**
+         * Derive a key from a password
+         * @param {String} password The password
+         * @param {String} salt The salt
+         * @param {Number} rounds The number of derivation rounds
+         * @param {Number} bits The number of bits for the key
+         * @see checkBrowserSupport
+         */
         deriveKeyFromPassword: function(password, salt, rounds, bits/*, algorithm*/) {
             checkBrowserSupport();
 
@@ -93,6 +101,9 @@
                 .then((arrBuff) => addHexSupportToArrayBuffer(arrBuff)); // HAXOR
         },
 
+        /**
+         * Perform patching of the PBKDF2 function in iocane
+         */
         patchCorePBKDF: function() {
             window.Buttercup.vendor.iocane.components.setPBKDF2(lib.deriveKeyFromPassword);
         }
