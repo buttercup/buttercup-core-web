@@ -15,7 +15,8 @@ var lib = module.exports = {
                 .findEntriesByMeta(metaKey, /.+/)
                 .filter(function(entry) {
                     var entryURL = entry.getMeta(metaKey);
-                    return (url.toLowerCase().indexOf(entryURL.toLowerCase()) >= 0);
+                    return (url.toLowerCase().indexOf(entryURL.toLowerCase()) >= 0)
+                        && (entry.isInTrash() === false);
                 });
             if (newEntries.length > 0) {
                 entries = entries.concat(newEntries);
