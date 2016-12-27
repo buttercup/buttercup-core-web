@@ -5,6 +5,10 @@
 <dd></dd>
 <dt><a href="#ArchiveManager">ArchiveManager</a></dt>
 <dd></dd>
+<dt><a href="#DropboxDatasource">DropboxDatasource</a> ⇐ <code>TextDatasource</code></dt>
+<dd></dd>
+<dt><a href="#DropboxDatasource">DropboxDatasource</a></dt>
+<dd></dd>
 </dl>
 
 ## Members
@@ -319,6 +323,73 @@ Unlock a locked item
 Stored archive status
 
 **Kind**: static enum of <code>[ArchiveManager](#ArchiveManager)</code>  
+<a name="DropboxDatasource"></a>
+
+## DropboxDatasource ⇐ <code>TextDatasource</code>
+**Kind**: global class  
+**Extends:** <code>TextDatasource</code>  
+
+* [DropboxDatasource](#DropboxDatasource) ⇐ <code>TextDatasource</code>
+    * [new DropboxDatasource()](#new_DropboxDatasource_new)
+    * [new DropboxDatasource(accessToken, resourcePath)](#new_DropboxDatasource_new)
+    * [.toObject()](#DropboxDatasource+toObject) ⇒ <code>Object</code>
+
+<a name="new_DropboxDatasource_new"></a>
+
+### new DropboxDatasource()
+Datasource for Dropbox archives
+
+<a name="new_DropboxDatasource_new"></a>
+
+### new DropboxDatasource(accessToken, resourcePath)
+Datasource for Dropbox accounts
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| accessToken | <code>String</code> | The dropbox access token |
+| resourcePath | <code>String</code> | The file path |
+
+<a name="DropboxDatasource+toObject"></a>
+
+### dropboxDatasource.toObject() ⇒ <code>Object</code>
+Output the datasource as an object
+
+**Kind**: instance method of <code>[DropboxDatasource](#DropboxDatasource)</code>  
+**Returns**: <code>Object</code> - An object describing the datasource  
+<a name="DropboxDatasource"></a>
+
+## DropboxDatasource
+**Kind**: global class  
+
+* [DropboxDatasource](#DropboxDatasource)
+    * [new DropboxDatasource()](#new_DropboxDatasource_new)
+    * [new DropboxDatasource(accessToken, resourcePath)](#new_DropboxDatasource_new)
+    * [.toObject()](#DropboxDatasource+toObject) ⇒ <code>Object</code>
+
+<a name="new_DropboxDatasource_new"></a>
+
+### new DropboxDatasource()
+Datasource for Dropbox archives
+
+<a name="new_DropboxDatasource_new"></a>
+
+### new DropboxDatasource(accessToken, resourcePath)
+Datasource for Dropbox accounts
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| accessToken | <code>String</code> | The dropbox access token |
+| resourcePath | <code>String</code> | The file path |
+
+<a name="DropboxDatasource+toObject"></a>
+
+### dropboxDatasource.toObject() ⇒ <code>Object</code>
+Output the datasource as an object
+
+**Kind**: instance method of <code>[DropboxDatasource](#DropboxDatasource)</code>  
+**Returns**: <code>Object</code> - An object describing the datasource  
 <a name="StorageInterface"></a>
 
 ## StorageInterface : <code>Object</code>
