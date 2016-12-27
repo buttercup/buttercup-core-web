@@ -1,5 +1,15 @@
 # Buttercup core-web changelog
 
+## v0.15.0
+_2016-12-27_
+
+ * Added [API documentation](API.md)
+ * Load Archive Manager state on boot
+ * Added Dropbox datasource
+ * Filter URL-based entries if they're deleted (trash)
+ * **Breaking changes:**
+    * Rewrote `ArchiveManager`
+
 ## v0.14.1
 _2016-12-17_
 
