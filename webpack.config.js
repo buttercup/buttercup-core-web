@@ -6,6 +6,9 @@ const paths = [
     /buttercup/
 ];
 
+const defines = {
+    "global.GENTLY": false
+};
 const entry = path.resolve(__dirname, "./source/index.js");
 const loaders = [
     {
@@ -39,6 +42,9 @@ module.exports = [
             path:       path.resolve(__dirname, "./build"),
             filename:   "buttercup.js"
         },
+        plugins: [
+            new webpack.DefinePlugin(defines)
+        ],
         resolve,
         stats
     },
@@ -51,6 +57,7 @@ module.exports = [
             filename:   "buttercup.min.js"
         },
         plugins: [
+            new webpack.DefinePlugin(defines),
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
                     warnings: false

@@ -40,6 +40,7 @@
     "babel-preset-es2015": "~6.9.0",
     "buttercup": "0.30.0-rc3",
     "crypto-browserify": "~3.11.0",
+    "dropbox-fs": "0.0.2",
     "json-loader": "~0.5.4",
     "rimraf": "^2.5.4",
     "uglifyjs": "~2.4.10",
