@@ -43,7 +43,9 @@ module.exports = [
             filename:   "buttercup.js"
         },
         plugins: [
-            new webpack.DefinePlugin(defines)
+            new webpack.DefinePlugin(defines),
+            new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, "node-noop"),
+            new webpack.IgnorePlugin(/vertx/)
         ],
         resolve,
         stats
@@ -58,6 +60,8 @@ module.exports = [
         },
         plugins: [
             new webpack.DefinePlugin(defines),
+            new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, "node-noop"),
+            new webpack.IgnorePlugin(/vertx/),
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
                     warnings: false
