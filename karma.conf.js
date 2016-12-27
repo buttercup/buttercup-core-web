@@ -1,6 +1,8 @@
 // Karma configuration
 // Generated on Sat Oct 15 2016 15:57:04 GMT+0300 (EEST)
 
+const webpackConfig = require("./webpack.config.js").pop(); // minified is second
+
 module.exports = function(config) {
   config.set({
 
@@ -10,12 +12,13 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai'],
+    frameworks: ['mocha', 'chai', 'sinon'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'build/buttercup.min.js',
+      // 'build/buttercup.min.js',
+      'source/index.js',
       'tests/**/*.spec.js'
     ],
 
@@ -28,6 +31,16 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'source/**/*.js': ['webpack'],
+      'tests/index.js': ['webpack']
+    },
+
+
+    webpack: webpackConfig,
+
+
+    webpackMiddleware: {
+      stats: 'errors-only'
     },
 
 
@@ -51,7 +64,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
 
     // start these browsers
@@ -61,7 +74,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
+    singleRun: false,
 
     // Concurrency level
     // how many browser should be started simultaneous

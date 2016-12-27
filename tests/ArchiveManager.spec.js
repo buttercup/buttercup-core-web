@@ -3,66 +3,111 @@ describe("ArchiveManager", function() {
     "use strict";
 
     var Buttercup = window.Buttercup,
-        Credentials = Buttercup.Credentials;
+        Archive = Buttercup.Archive,
+        Credentials = Buttercup.Credentials,
+        TextDatasource = Buttercup.TextDatasource,
+        SharedWorkspace = Buttercup.SharedWorkspace,
+        ArchiveManager = Buttercup.Web.ArchiveManager;
 
-    var ButtercupWeb = window.Buttercup.Web,
-        ArchiveManager = ButtercupWeb.ArchiveManager;
-
-    var credentials,
-        archiveManager;
-
+    
     beforeEach(function() {
-        credentials = new Credentials({
-            username: "abc123",
-            password: "1$55*",
-            type: "webdav"
+        this.archiveManager = new ArchiveManager({
+            getData: () => JSON.parse(this.savedData),
+            setData: (name, data) => {
+                this.savedData = JSON.stringify(data)
+            }
         });
-        archiveManager = new ArchiveManager();
-    });
-
-    it("sets and gets credentials", function() {
-        archiveManager.addCredentials("custom", credentials, "masterPa55");
-        var creds = archiveManager.getCredentials("custom");
-        expect(creds.model.get("username")).to.equal("abc123");
-        expect(creds.model.get("password")).to.equal("1$55*");
-        expect(creds.model.get("type")).to.equal("webdav");
-    });
-
-    it("locks and unlocks credentials", function() {
-        archiveManager.addCredentials("custom", credentials, "masterPa55");
-        expect(archiveManager.isLocked("custom")).to.equal(false);
-        return archiveManager
-            .lock("custom")
-            .then(function() {
-                expect(archiveManager.isLocked("custom")).to.be.true;
-                expect(archiveManager._archives["custom"].password).to.be.undefined;
+        this.savedData = `{ "archives": {} }`;
+        let testArchive = Archive.createWithDefaults(),
+            testDatasource = new TextDatasource();
+        return testDatasource
+            .save(testArchive, "pass")
+            .then((archiveEnc) => {
+                this.datasource = new TextDatasource(archiveEnc);
+                this.workspace = new SharedWorkspace();
+                this.workspace.setPrimaryArchive(testArchive, this.datasource, "pass");
+                let creds = new Credentials();
+                creds.setMeta(Credentials.DATASOURCE_META, this.datasource.toString());
+                this.archiveManager.addArchive(
+                    "test",
+                    this.workspace,
+                    creds,
+                    "pass"
+                );
             });
     });
 
-    it("saves and loads state", function() {
-        archiveManager.addCredentials("custom", credentials, "masterPa55");
-        return archiveManager
-            .saveState()
-            .then(function() {
-                archiveManager.loadState();
-                expect(archiveManager.isLocked("custom")).to.be.true;
-            });
+    describe("isLocked", function() {
+
+        it("detects unlocked entries correctly", function() {
+            expect(this.archiveManager.isLocked("test")).to.be.false;
+        });
+
+        it("detects locked entries correctly", function() {
+            this.archiveManager.archives["test"].status = ArchiveManager.ArchiveStatus.LOCKED;
+            expect(this.archiveManager.isLocked("test")).to.be.true;
+        });
+
     });
 
-    it("loads and unlocks", function() {
-        archiveManager.addCredentials("custom", credentials, "masterPa55");
-        return archiveManager
-            .saveState()
-            .then(function() {
-                archiveManager.loadState();
-                return archiveManager.unlock("custom", "masterPa55")
-                    .then(function(creds) {
-                        expect(archiveManager.isLocked("custom")).to.be.false;
-                        expect(creds.model.get("username")).to.equal("abc123");
-                        expect(creds.model.get("password")).to.equal("1$55*");
-                        expect(creds.model.get("type")).to.equal("webdav");
-                    });
-            });
+    describe("loadState", function() {
+
+        it("loads saved archives in locked state", function() {
+            expect(this.archiveManager.archives["test"].status).to.equal(ArchiveManager.ArchiveStatus.UNLOCKED);
+            return this.archiveManager
+                .saveState()
+                .then(() => this.archiveManager.loadState())
+                .then(() => {
+                    expect(this.archiveManager.archives["test"].status).to.equal(ArchiveManager.ArchiveStatus.LOCKED);
+                });
+        });
+
+    });
+
+    describe("lock", function() {
+
+        it("locks an item successfully", function() {
+            expect(this.archiveManager.archives["test"].status).to.equal(ArchiveManager.ArchiveStatus.UNLOCKED);
+            return this.archiveManager
+                .lock("test")
+                .then(() => {
+                    let details = this.archiveManager.archives["test"];
+                    expect(details.status).to.equal(ArchiveManager.ArchiveStatus.LOCKED);
+                    expect(details.workspace).to.be.undefined;
+                    expect(details.password).to.be.undefined;
+                    expect(typeof details.credentials).to.equal("string");
+                });
+        });
+
+    });
+
+    describe("saveState", function() {
+
+        it("writes archives to storage", function() {
+            return this.archiveManager
+                .saveState()
+                .then(() => {
+                    let storage = JSON.parse(this.savedData);
+                    expect(storage.archives.test).to.have.length.above(50);
+                });
+        });
+
+    });
+
+    describe("unlock", function() {
+
+        it("unlocks a locked item", function() {
+            return this.archiveManager
+                .lock("test")
+                .then(() => {
+                    expect(this.archiveManager.archives["test"].status).to.equal(ArchiveManager.ArchiveStatus.LOCKED);
+                    return this.archiveManager.unlock("test", "pass");
+                })
+                .then(() => {
+                    expect(this.archiveManager.archives["test"].status).to.equal(ArchiveManager.ArchiveStatus.UNLOCKED);
+                });
+        });
+
     });
 
 });
