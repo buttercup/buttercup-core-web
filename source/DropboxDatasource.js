@@ -26,7 +26,7 @@ class DropboxDatasource extends TextDatasource {
 
     load(password) {
         return (new Promise((resolve, reject) => {
-            this.dfs.readFile(filePath, "utf8", function(error, data) {
+            this.dfs.readFile(this.path, { encoding: "utf8" }, function(error, data) {
                 if (error) {
                     return reject(error);
                 }
