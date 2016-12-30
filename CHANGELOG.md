@@ -1,5 +1,10 @@
 # Buttercup core-web changelog
 
+## v0.15.1
+_2016-12-30_
+
+ * Fixed OwnCloudDatasource instantiation
+
 ## v0.15.0
 _2016-12-27_
 
