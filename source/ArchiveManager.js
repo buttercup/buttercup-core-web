@@ -88,7 +88,7 @@ class ArchiveManager {
         if (this._archives[name]) {
             throw new Error(`Archive already exists: ${name}`);
         }
-        this._archives[name] = {
+        this.archives[name] = {
             status: ArchiveManager.ArchiveStatus.UNLOCKED,
             workspace,
             credentials,
@@ -103,10 +103,10 @@ class ArchiveManager {
      * @throws {Error} Throws if the item is not found
      */
     isLocked(name) {
-        if (!this._archives[name]) {
+        if (!this.archives[name]) {
             throw new Error(`Archive not found: ${name}`);
         }
-        return this._archives[name].status === ArchiveManager.ArchiveStatus.LOCKED;
+        return this.archives[name].status === ArchiveManager.ArchiveStatus.LOCKED;
     }
 
     /**
@@ -119,7 +119,7 @@ class ArchiveManager {
         this._archives = {};
         var loadedData = this.storage.getData("archiveManager", { archives: {} });
         for (var name in loadedData.archives) {
-            this._archives[name] = {
+            this.archives[name] = {
                 status: ArchiveManager.ArchiveStatus.LOCKED,
                 credentials: loadedData.archives[name]
             };
@@ -135,13 +135,13 @@ class ArchiveManager {
      * @returns {Promise} A promise that resolves when the item is locked
      */
     lock(name) {
-        if (!this._archives[name]) {
+        if (!this.archives[name]) {
             throw new Error(`Archive not found: ${name}`);
         }
         if (this.isLocked(name)) {
             throw new Error(`Archive already locked: ${name}`);
         }
-        let details = this._archives[name];
+        let details = this.archives[name];
         if (details.status === ArchiveManager.ArchiveStatus.PROCESSING) {
             throw new Error(`Archive is in processing state: ${name}`);
         }
@@ -165,8 +165,8 @@ class ArchiveManager {
                 archives: {}
             },
             delayed = [Promise.resolve()]
-        Object.keys(this._archives).forEach((name) => {
-            let archiveDetails = this._archives[name];
+        Object.keys(this.archives).forEach((name) => {
+            let archiveDetails = this.archives[name];
             if (archiveDetails.status === ArchiveManager.ArchiveStatus.LOCKED) {
                 packet.archives[name] = archiveDetails.credentials;
             } else {
@@ -194,7 +194,7 @@ class ArchiveManager {
      * @returns {Promise} A promise that resolves when the item is unlocked
      */
     unlock(name, password) {
-        var archiveDetails = this._archives[name];
+        var archiveDetails = this.archives[name];
         if (!this.isLocked(name)) {
             return Promise.resolve(archiveDetails);
         }
