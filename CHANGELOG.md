@@ -1,5 +1,12 @@
 # Buttercup core-web changelog
 
+## v0.16.0
+_2017-01-06_
+
+ * Upgrade core to 0.32.0
+   * Add `findEntryByID` to `Archive` and `Group` classes
+   * Add `emptyTrash` method to `Archive`
+
 ## v0.15.1
 _2016-12-30_
 
