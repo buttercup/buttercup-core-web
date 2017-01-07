@@ -4,7 +4,7 @@
  * @name StorageInterface
  * @type {Object}
  */
-var StorageInterface = module.exports = {
+module.exports = {
 
     /**
      * Get data from storage
@@ -13,6 +13,7 @@ var StorageInterface = module.exports = {
      * @static
      * @param {String} key The key to fetch for
      * @param {*} defaultValue The default value if the key is not found
+     * @returns {*} The fetched data
      */
     getData: function(key, defaultValue) {
         var value = window.localStorage.getItem(key);

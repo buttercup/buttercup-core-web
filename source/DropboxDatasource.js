@@ -26,11 +26,11 @@ class DropboxDatasource extends TextDatasource {
 
     load(password) {
         return (new Promise((resolve, reject) => {
-            this.dfs.readFile(this.path, { encoding: "utf8" }, function(error, data) {
+            this.dfs.readFile(this.path, { encoding: "utf8" }, function _readFile(error, data) {
                 if (error) {
                     return reject(error);
                 }
-                resolve(data);
+                return resolve(data);
             });
         }))
         .then((content) => {
@@ -44,11 +44,11 @@ class DropboxDatasource extends TextDatasource {
             .save(archive, password)
             .then((encryptedContent) => {
                 return new Promise((resolve, reject) => {
-                    this.dfs.writeFile(this.path, encryptedContent, function(err) {
+                    this.dfs.writeFile(this.path, encryptedContent, function _writeFile(err) {
                         if (err) {
                             return reject(err);
                         }
-                        resolve();
+                        return resolve();
                     });
                 });
             });

@@ -1,6 +1,6 @@
 "use strict";
 
-var lib = module.exports = {
+module.exports = {
 
     /**
      * Get entries for a particular URL
@@ -15,8 +15,8 @@ var lib = module.exports = {
                 .findEntriesByMeta(metaKey, /.+/)
                 .filter(function(entry) {
                     var entryURL = entry.getMeta(metaKey);
-                    return (url.toLowerCase().indexOf(entryURL.toLowerCase()) >= 0)
-                        && (entry.isInTrash() === false);
+                    return url.toLowerCase().indexOf(entryURL.toLowerCase()) >= 0 &&
+                        entry.isInTrash() === false;
                 });
             if (newEntries.length > 0) {
                 entries = entries.concat(newEntries);

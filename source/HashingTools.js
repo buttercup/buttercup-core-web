@@ -2,23 +2,12 @@
 
 const subtleCrypto = window.crypto.subtle;
 
-function addHexSupportToArrayBuffer(arrayBuffer) {
-    let _toString = arrayBuffer.toString || function() {};
-    arrayBuffer.toString = function(mode) {
-        if (mode === "hex") {
-            return arrayBufferToHexString(arrayBuffer);
-        }
-        return _toString.call(arrayBuffer, mode);
-    };
-    return arrayBuffer;
-}
-
 function arrayBufferToHexString(arrayBuffer) {
     var byteArray = new Uint8Array(arrayBuffer);
     var hexString = "";
     var nextHexByte;
 
-    for (var i = 0; i < byteArray.byteLength; i += 1) {
+    for (let i = 0; i < byteArray.byteLength; i += 1) {
         nextHexByte = byteArray[i].toString(16);
         if (nextHexByte.length < 2) {
             nextHexByte = "0" + nextHexByte;
@@ -26,6 +15,17 @@ function arrayBufferToHexString(arrayBuffer) {
         hexString += nextHexByte;
     }
     return hexString;
+}
+
+function addHexSupportToArrayBuffer(arrayBuffer) {
+    const _toString = arrayBuffer.toString || function NOOP() {};
+    arrayBuffer.toString = function(mode) {
+        if (mode === "hex") {
+            return arrayBufferToHexString(arrayBuffer);
+        }
+        return _toString.call(arrayBuffer, mode);
+    };
+    return arrayBuffer;
 }
 
 function checkBrowserSupport() {
@@ -46,7 +46,7 @@ function stringToArrayBuffer(string) {
     return encoder.encode(string);
 }
 
-var lib = module.exports = {
+const lib = module.exports = {
 
     /**
      * Derive a key from a password
@@ -55,22 +55,23 @@ var lib = module.exports = {
      * @param {Number} rounds The number of derivation rounds
      * @param {Number} bits The number of bits for the key
      * @see checkBrowserSupport
+     * @returns {Promise.<ArrayBuffer>} A promise that resolves with an ArrayBuffer
      */
-    deriveKeyFromPassword: function(password, salt, rounds, bits/*, algorithm*/) {
+    deriveKeyFromPassword: function(password, salt, rounds, bits /* , algorithm */) {
         checkBrowserSupport();
 
         let params = {
-                "name": "PBKDF2",
-                "hash": "SHA-256",
-                "salt": stringToArrayBuffer(salt),
-                "iterations": rounds
+                name: "PBKDF2",
+                hash: "SHA-256",
+                salt: stringToArrayBuffer(salt),
+                iterations: rounds
             },
             bytes = bits / 8,
             keysLen = bytes / 2;
         return subtleCrypto.importKey(
                 "raw",
                 stringToArrayBuffer(password),
-                {"name": "PBKDF2"},
+                { name: "PBKDF2" },
                 false, // not extractable
                 ["deriveBits"]
             )
