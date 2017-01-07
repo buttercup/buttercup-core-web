@@ -1,40 +1,36 @@
-(function() {
+"use strict";
 
-	"use strict";
+window.Buttercup = require("buttercup");
 
-	window.Buttercup = require("buttercup");
+const ArchiveManager = require("__buttercup_web/ArchiveManager.js");
+const ArchiveTools = require("__buttercup_web/ArchiveTools.js");
+const HashingTools = require("__buttercup_web/HashingTools.js");
+const StorageInterface = require("__buttercup_web/StorageInterface.js");
+const DropboxDatasource = require("__buttercup_web/DropboxDatasource.js");
 
-	var ArchiveManager = require("__buttercup_web/ArchiveManager.js"),
-        ArchiveTools = require("__buttercup_web/ArchiveTools.js"),
-        HashingTools = require("__buttercup_web/HashingTools.js"),
-        StorageInterface = require("__buttercup_web/StorageInterface.js"),
-        DropboxDatasource = require("__buttercup_web/DropboxDatasource.js");
+// BEGIN initialisation
 
-    // BEGIN initialisation
+HashingTools.patchCorePBKDF();
 
-    HashingTools.patchCorePBKDF();
+let sessionArchiveManager = new ArchiveManager();
+sessionArchiveManager.loadState();
 
-    let sessionArchiveManager = new ArchiveManager();
-    sessionArchiveManager.loadState();
+// END initialisation
 
-    // END initialisation
+// Export:
 
-    // Export:
+window.Buttercup.Web = {
 
-	window.Buttercup.Web = {
+    ArchiveManager,
 
-		ArchiveManager,
+    archiveManager: sessionArchiveManager,
 
-		archiveManager: sessionArchiveManager,
+    ArchiveTools,
 
-        ArchiveTools,
+    DropboxDatasource,
 
-        DropboxDatasource,
+    HashingTools,
 
-        HashingTools,
+    StorageInterface
 
-        StorageInterface
-
-	};
-
-})();
+};

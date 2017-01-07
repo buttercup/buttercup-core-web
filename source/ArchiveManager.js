@@ -1,10 +1,11 @@
 "use strict";
 
 var Buttercup = require("buttercup"),
-    Credentials = Buttercup.Credentials,
-    DatasourceAdapter = Buttercup.DatasourceAdapter,
-    SharedWorkspace = Buttercup.SharedWorkspace,
     StorageInterface = require("__buttercup_web/StorageInterface.js");
+
+var Credentials = Buttercup.Credentials,
+    DatasourceAdapter = Buttercup.DatasourceAdapter,
+    SharedWorkspace = Buttercup.SharedWorkspace;
 
 /**
  * Archive Manager - manages a set of archives for the browser
@@ -42,9 +43,9 @@ class ArchiveManager {
      */
     get displayList() {
         let archives = this.archives;
-        return Object.keys(archives).map(name => ({
-            name,
-            status: archives[name].status
+        return Object.keys(archives).map(archiveName => ({
+            archiveName,
+            status: archives[archiveName].status
         }));
     }
 
@@ -72,23 +73,23 @@ class ArchiveManager {
     get unlockedArchives() {
         let archives = this.archives;
         return Object.keys(archives)
-            .map(name => Object.assign({ name }, archives[name]))
+            .map(archiveName => Object.assign({ name: archiveName }, archives[archiveName]))
             .filter(details => details.status === ArchiveManager.ArchiveStatus.UNLOCKED);
     }
 
     /**
      * Add an archive to the manager
-     * @param {String} name A unique name for the item
+     * @param {String} archiveName A unique name for the item
      * @param {SharedWorkspace} workspace The workspace that holds the archive, datasource etc.
      * @param {Credentials} credentials The credentials for remote storage etc.
      *  (these should also already hold datasource meta information)
      * @param {String} masterPassword The master password
      */
-    addArchive(name, workspace, credentials, masterPassword) {
-        if (this._archives[name]) {
-            throw new Error(`Archive already exists: ${name}`);
+    addArchive(archiveName, workspace, credentials, masterPassword) {
+        if (this._archives[archiveName]) {
+            throw new Error(`Archive already exists: ${archiveName}`);
         }
-        this.archives[name] = {
+        this.archives[archiveName] = {
             status: ArchiveManager.ArchiveStatus.UNLOCKED,
             workspace,
             credentials,
@@ -98,52 +99,53 @@ class ArchiveManager {
 
     /**
      * Check if an item is locked
-     * @param {String} name The name of the item
+     * @param {String} archiveName The name of the item
      * @returns {Boolean} True if locked
      * @throws {Error} Throws if the item is not found
      */
-    isLocked(name) {
-        if (!this.archives[name]) {
-            throw new Error(`Archive not found: ${name}`);
+    isLocked(archiveName) {
+        if (!this.archives[archiveName]) {
+            throw new Error(`Archive not found: ${archiveName}`);
         }
-        return this.archives[name].status === ArchiveManager.ArchiveStatus.LOCKED;
+        return this.archives[archiveName].status === ArchiveManager.ArchiveStatus.LOCKED;
     }
 
     /**
      * Load the manager state
      * Used when the page loads to restore the archive items list (all are locked at
      *  this stage).
-     * 
      */
     loadState() {
-        this._archives = {};
         var loadedData = this.storage.getData("archiveManager", { archives: {} });
-        for (var name in loadedData.archives) {
-            this.archives[name] = {
-                status: ArchiveManager.ArchiveStatus.LOCKED,
-                credentials: loadedData.archives[name]
-            };
+        this._archives = {};
+        for (const archiveName in loadedData.archives) {
+            if (loadedData.archives.hasOwnProperty(archiveName)) {
+                this.archives[archiveName] = {
+                    status: ArchiveManager.ArchiveStatus.LOCKED,
+                    credentials: loadedData.archives[archiveName]
+                };
+            }
         }
     }
 
     /**
      * Lock an item
-     * @param {String} name The name of the item to lock
+     * @param {String} archiveName The name of the item to lock
      * @throws {Error} Throws if the item is not found
      * @throws {Error} Throws if the item is already locked
      * @throws {Error} Throws if the item is currently being processed
      * @returns {Promise} A promise that resolves when the item is locked
      */
-    lock(name) {
-        if (!this.archives[name]) {
-            throw new Error(`Archive not found: ${name}`);
+    lock(archiveName) {
+        if (!this.archives[archiveName]) {
+            throw new Error(`Archive not found: ${archiveName}`);
         }
-        if (this.isLocked(name)) {
-            throw new Error(`Archive already locked: ${name}`);
+        if (this.isLocked(archiveName)) {
+            throw new Error(`Archive already locked: ${archiveName}`);
         }
-        let details = this.archives[name];
+        let details = this.archives[archiveName];
         if (details.status === ArchiveManager.ArchiveStatus.PROCESSING) {
-            throw new Error(`Archive is in processing state: ${name}`);
+            throw new Error(`Archive is in processing state: ${archiveName}`);
         }
         details.status = ArchiveManager.ArchiveStatus.PROCESSING;
         return details.credentials
@@ -164,17 +166,17 @@ class ArchiveManager {
         var packet = {
                 archives: {}
             },
-            delayed = [Promise.resolve()]
-        Object.keys(this.archives).forEach((name) => {
-            let archiveDetails = this.archives[name];
+            delayed = [Promise.resolve()];
+        Object.keys(this.archives).forEach((archiveName) => {
+            const archiveDetails = this.archives[archiveName];
             if (archiveDetails.status === ArchiveManager.ArchiveStatus.LOCKED) {
-                packet.archives[name] = archiveDetails.credentials;
+                packet.archives[archiveName] = archiveDetails.credentials;
             } else {
                 delayed.push(
                     archiveDetails.credentials
                         .convertToSecureContent(archiveDetails.password)
-                        .then(function(content) {
-                            packet.archives[name] = content;
+                        .then(function handledConvertedContent(content) {
+                            packet.archives[archiveName] = content;
                         })
                 );
             }
@@ -188,14 +190,14 @@ class ArchiveManager {
 
     /**
      * Unlock a locked item
-     * @param {String} name The name of the item to unlock
+     * @param {String} archiveName The name of the item to unlock
      * @param {String} password The master password of the item to unlock
      * @throws {Error} Throws if the item is not locked
      * @returns {Promise} A promise that resolves when the item is unlocked
      */
-    unlock(name, password) {
-        var archiveDetails = this.archives[name];
-        if (!this.isLocked(name)) {
+    unlock(archiveName, password) {
+        var archiveDetails = this.archives[archiveName];
+        if (!this.isLocked(archiveName)) {
             return Promise.resolve(archiveDetails);
         }
         archiveDetails.status = ArchiveManager.ArchiveStatus.PROCESSING;
@@ -203,7 +205,7 @@ class ArchiveManager {
             .createFromSecureContent(archiveDetails.credentials, password)
             .then((credentials) => {
                 if (!credentials) {
-                    return Promise.reject(new Error("Failed unlocking credentials: " + name));
+                    return Promise.reject(new Error("Failed unlocking credentials: " + archiveName));
                 }
                 archiveDetails.credentials = credentials;
                 archiveDetails.password = password;
@@ -218,7 +220,7 @@ class ArchiveManager {
                 ]);
             })
             .then(([archive, datasource] = []) => {
-                let workspace = new SharedWorkspace();
+                const workspace = new SharedWorkspace();
                 workspace.setPrimaryArchive(archive, datasource, password);
                 archiveDetails.workspace = workspace;
                 archiveDetails.status = ArchiveManager.ArchiveStatus.UNLOCKED;
