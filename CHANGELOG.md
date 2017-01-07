@@ -1,5 +1,12 @@
 # Buttercup core-web changelog
 
+## v0.17.2
+_2017-01-07_
+
+ * Upgrade core to 0.33.1
+   * Type checking for `Archive` and `Group` instances
+   * Better type checking in group moving
+
 ## v0.17.0
 _2017-01-07_
 
