@@ -1,5 +1,11 @@
 # Buttercup core-web changelog
 
+## v0.17.0
+_2017-01-07_
+
+ * Upgrade core to 0.33.0
+   * Add `getHistory` and `createFromHistory` `Archive` methods
+
 ## v0.16.0
 _2017-01-06_
 
