@@ -1,5 +1,10 @@
 # Buttercup core-web changelog
 
+## v0.17.3
+_2017-01-09_
+
+ * Bugfix: typo in output of ArchiveManager.displayList
+
 ## v0.17.2
 _2017-01-07_
 

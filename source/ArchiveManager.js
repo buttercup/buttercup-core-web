@@ -44,7 +44,7 @@ class ArchiveManager {
     get displayList() {
         let archives = this.archives;
         return Object.keys(archives).map(archiveName => ({
-            archiveName,
+            name: archiveName,
             status: archives[archiveName].status
         }));
     }
