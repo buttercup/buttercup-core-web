@@ -159,6 +159,19 @@ class ArchiveManager {
     }
 
     /**
+     * Remove an archive by name
+     * @param {String} archiveName The name of the archive to remove
+     * @returns {Boolean} True if deleted, false if not found
+     */
+    removeArchive(archiveName) {
+        if (this._archives.hasOwnProperty(archiveName)) {
+            delete this._archives[archiveName];
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Save the state of the manager to the storage
      * @returns {Promise} A promise that resolves once the state has been saved
      */

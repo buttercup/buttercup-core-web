@@ -1,7 +1,4 @@
 describe("ArchiveManager", function() {
-
-    "use strict";
-
     var Buttercup = window.Buttercup,
         Archive = Buttercup.Archive,
         Credentials = Buttercup.Credentials,
@@ -9,15 +6,15 @@ describe("ArchiveManager", function() {
         SharedWorkspace = Buttercup.SharedWorkspace,
         ArchiveManager = Buttercup.Web.ArchiveManager;
 
-    
+
     beforeEach(function() {
         this.archiveManager = new ArchiveManager({
             getData: () => JSON.parse(this.savedData),
             setData: (name, data) => {
-                this.savedData = JSON.stringify(data)
+                this.savedData = JSON.stringify(data);
             }
         });
-        this.savedData = `{ "archives": {} }`;
+        this.savedData = '{ "archives": {} }';
         let testArchive = Archive.createWithDefaults(),
             testDatasource = new TextDatasource();
         return testDatasource
@@ -77,6 +74,16 @@ describe("ArchiveManager", function() {
                     expect(details.password).to.be.undefined;
                     expect(typeof details.credentials).to.equal("string");
                 });
+        });
+
+    });
+
+    describe("removeArchive", function() {
+
+        it("removes the archive", function() {
+            let removed = this.archiveManager.removeArchive("test");
+            expect(removed).to.be.true;
+            expect(this.archiveManager.archives.test).to.be.undefined;
         });
 
     });

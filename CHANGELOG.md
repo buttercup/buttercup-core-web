@@ -1,5 +1,10 @@
 # Buttercup core-web changelog
 
+## v0.18.0
+_2017-01-10_
+
+ * Added `removeArchive` to `ArchiveManager`
+
 ## v0.17.3
 _2017-01-09_
 
