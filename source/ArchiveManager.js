@@ -35,6 +35,7 @@ class ArchiveManager {
      * @typedef {Object} ArchiveDetailsDisplay
      * @property {String} name The name of the item
      * @property {ArchiveStatus} status The status of the item
+     * @property {String} type The type of archive connection
      */
 
     /**
@@ -45,7 +46,8 @@ class ArchiveManager {
         let archives = this.archives;
         return Object.keys(archives).map(archiveName => ({
             name: archiveName,
-            status: archives[archiveName].status
+            status: archives[archiveName].status,
+            type: archives[archiveName].type
         }));
     }
 
@@ -93,7 +95,8 @@ class ArchiveManager {
             status: ArchiveManager.ArchiveStatus.UNLOCKED,
             workspace,
             credentials,
-            password: masterPassword
+            password: masterPassword,
+            type: credentials.type
         };
     }
 
@@ -120,9 +123,11 @@ class ArchiveManager {
         this._archives = {};
         for (const archiveName in loadedData.archives) {
             if (loadedData.archives.hasOwnProperty(archiveName)) {
+                let { content, type } = loadedData.archives[archiveName];
                 this.archives[archiveName] = {
                     status: ArchiveManager.ArchiveStatus.LOCKED,
-                    credentials: loadedData.archives[archiveName]
+                    credentials: content,
+                    type
                 };
             }
         }
@@ -183,13 +188,19 @@ class ArchiveManager {
         Object.keys(this.archives).forEach((archiveName) => {
             const archiveDetails = this.archives[archiveName];
             if (archiveDetails.status === ArchiveManager.ArchiveStatus.LOCKED) {
-                packet.archives[archiveName] = archiveDetails.credentials;
+                packet.archives[archiveName] = {
+                    content: archiveDetails.credentials,
+                    type: archiveDetails.type
+                };
             } else {
                 delayed.push(
                     archiveDetails.credentials
                         .convertToSecureContent(archiveDetails.password)
                         .then(function handledConvertedContent(content) {
-                            packet.archives[archiveName] = content;
+                            packet.archives[archiveName] = {
+                                content,
+                                type: archiveDetails.type
+                            };
                         })
                 );
             }
