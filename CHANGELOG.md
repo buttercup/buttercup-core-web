@@ -1,5 +1,10 @@
 # Buttercup core-web changelog
 
+## v0.19.0
+_2017-01-22_
+
+ * Add `type` property to `displayList` of `ArchiveManager` (_This contains breaking changes to the save format in local storage._)
+
 ## v0.18.0
 _2017-01-10_
 

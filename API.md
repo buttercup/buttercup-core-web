@@ -42,12 +42,13 @@
         * [.displayList](#ArchiveManager+displayList) : <code>[Array.&lt;ArchiveDetailsDisplay&gt;](#ArchiveDetailsDisplay)</code>
         * [.storage](#ArchiveManager+storage) : <code>[StorageInterface](#StorageInterface)</code>
         * [.unlockedArchives](#ArchiveManager+unlockedArchives) : <code>[Array.&lt;ManagedArchiveItem&gt;](#ManagedArchiveItem)</code>
-        * [.addArchive(name, workspace, credentials, masterPassword)](#ArchiveManager+addArchive)
-        * [.isLocked(name)](#ArchiveManager+isLocked) ⇒ <code>Boolean</code>
+        * [.addArchive(archiveName, workspace, credentials, masterPassword)](#ArchiveManager+addArchive)
+        * [.isLocked(archiveName)](#ArchiveManager+isLocked) ⇒ <code>Boolean</code>
         * [.loadState()](#ArchiveManager+loadState)
-        * [.lock(name)](#ArchiveManager+lock) ⇒ <code>Promise</code>
+        * [.lock(archiveName)](#ArchiveManager+lock) ⇒ <code>Promise</code>
+        * [.removeArchive(archiveName)](#ArchiveManager+removeArchive) ⇒ <code>Boolean</code>
         * [.saveState()](#ArchiveManager+saveState) ⇒ <code>Promise</code>
-        * [.unlock(name, password)](#ArchiveManager+unlock) ⇒ <code>Promise</code>
+        * [.unlock(archiveName, password)](#ArchiveManager+unlock) ⇒ <code>Promise</code>
     * _static_
         * [.ArchiveStatus](#ArchiveManager.ArchiveStatus)
 
@@ -92,21 +93,21 @@ Array of unlocked archive items
 **Kind**: instance property of <code>[ArchiveManager](#ArchiveManager)</code>  
 <a name="ArchiveManager+addArchive"></a>
 
-### archiveManager.addArchive(name, workspace, credentials, masterPassword)
+### archiveManager.addArchive(archiveName, workspace, credentials, masterPassword)
 Add an archive to the manager
 
 **Kind**: instance method of <code>[ArchiveManager](#ArchiveManager)</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| name | <code>String</code> | A unique name for the item |
+| archiveName | <code>String</code> | A unique name for the item |
 | workspace | <code>SharedWorkspace</code> | The workspace that holds the archive, datasource etc. |
 | credentials | <code>Credentials</code> | The credentials for remote storage etc.  (these should also already hold datasource meta information) |
 | masterPassword | <code>String</code> | The master password |
 
 <a name="ArchiveManager+isLocked"></a>
 
-### archiveManager.isLocked(name) ⇒ <code>Boolean</code>
+### archiveManager.isLocked(archiveName) ⇒ <code>Boolean</code>
 Check if an item is locked
 
 **Kind**: instance method of <code>[ArchiveManager](#ArchiveManager)</code>  
@@ -118,7 +119,7 @@ Check if an item is locked
 
 | Param | Type | Description |
 | --- | --- | --- |
-| name | <code>String</code> | The name of the item |
+| archiveName | <code>String</code> | The name of the item |
 
 <a name="ArchiveManager+loadState"></a>
 
@@ -130,7 +131,7 @@ Used when the page loads to restore the archive items list (all are locked at
 **Kind**: instance method of <code>[ArchiveManager](#ArchiveManager)</code>  
 <a name="ArchiveManager+lock"></a>
 
-### archiveManager.lock(name) ⇒ <code>Promise</code>
+### archiveManager.lock(archiveName) ⇒ <code>Promise</code>
 Lock an item
 
 **Kind**: instance method of <code>[ArchiveManager](#ArchiveManager)</code>  
@@ -144,7 +145,19 @@ Lock an item
 
 | Param | Type | Description |
 | --- | --- | --- |
-| name | <code>String</code> | The name of the item to lock |
+| archiveName | <code>String</code> | The name of the item to lock |
+
+<a name="ArchiveManager+removeArchive"></a>
+
+### archiveManager.removeArchive(archiveName) ⇒ <code>Boolean</code>
+Remove an archive by name
+
+**Kind**: instance method of <code>[ArchiveManager](#ArchiveManager)</code>  
+**Returns**: <code>Boolean</code> - True if deleted, false if not found  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| archiveName | <code>String</code> | The name of the archive to remove |
 
 <a name="ArchiveManager+saveState"></a>
 
@@ -155,7 +168,7 @@ Save the state of the manager to the storage
 **Returns**: <code>Promise</code> - A promise that resolves once the state has been saved  
 <a name="ArchiveManager+unlock"></a>
 
-### archiveManager.unlock(name, password) ⇒ <code>Promise</code>
+### archiveManager.unlock(archiveName, password) ⇒ <code>Promise</code>
 Unlock a locked item
 
 **Kind**: instance method of <code>[ArchiveManager](#ArchiveManager)</code>  
@@ -167,7 +180,7 @@ Unlock a locked item
 
 | Param | Type | Description |
 | --- | --- | --- |
-| name | <code>String</code> | The name of the item to unlock |
+| archiveName | <code>String</code> | The name of the item to unlock |
 | password | <code>String</code> | The master password of the item to unlock |
 
 <a name="ArchiveManager.ArchiveStatus"></a>
@@ -189,12 +202,13 @@ Stored archive status
         * [.displayList](#ArchiveManager+displayList) : <code>[Array.&lt;ArchiveDetailsDisplay&gt;](#ArchiveDetailsDisplay)</code>
         * [.storage](#ArchiveManager+storage) : <code>[StorageInterface](#StorageInterface)</code>
         * [.unlockedArchives](#ArchiveManager+unlockedArchives) : <code>[Array.&lt;ManagedArchiveItem&gt;](#ManagedArchiveItem)</code>
-        * [.addArchive(name, workspace, credentials, masterPassword)](#ArchiveManager+addArchive)
-        * [.isLocked(name)](#ArchiveManager+isLocked) ⇒ <code>Boolean</code>
+        * [.addArchive(archiveName, workspace, credentials, masterPassword)](#ArchiveManager+addArchive)
+        * [.isLocked(archiveName)](#ArchiveManager+isLocked) ⇒ <code>Boolean</code>
         * [.loadState()](#ArchiveManager+loadState)
-        * [.lock(name)](#ArchiveManager+lock) ⇒ <code>Promise</code>
+        * [.lock(archiveName)](#ArchiveManager+lock) ⇒ <code>Promise</code>
+        * [.removeArchive(archiveName)](#ArchiveManager+removeArchive) ⇒ <code>Boolean</code>
         * [.saveState()](#ArchiveManager+saveState) ⇒ <code>Promise</code>
-        * [.unlock(name, password)](#ArchiveManager+unlock) ⇒ <code>Promise</code>
+        * [.unlock(archiveName, password)](#ArchiveManager+unlock) ⇒ <code>Promise</code>
     * _static_
         * [.ArchiveStatus](#ArchiveManager.ArchiveStatus)
 
@@ -239,21 +253,21 @@ Array of unlocked archive items
 **Kind**: instance property of <code>[ArchiveManager](#ArchiveManager)</code>  
 <a name="ArchiveManager+addArchive"></a>
 
-### archiveManager.addArchive(name, workspace, credentials, masterPassword)
+### archiveManager.addArchive(archiveName, workspace, credentials, masterPassword)
 Add an archive to the manager
 
 **Kind**: instance method of <code>[ArchiveManager](#ArchiveManager)</code>  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| name | <code>String</code> | A unique name for the item |
+| archiveName | <code>String</code> | A unique name for the item |
 | workspace | <code>SharedWorkspace</code> | The workspace that holds the archive, datasource etc. |
 | credentials | <code>Credentials</code> | The credentials for remote storage etc.  (these should also already hold datasource meta information) |
 | masterPassword | <code>String</code> | The master password |
 
 <a name="ArchiveManager+isLocked"></a>
 
-### archiveManager.isLocked(name) ⇒ <code>Boolean</code>
+### archiveManager.isLocked(archiveName) ⇒ <code>Boolean</code>
 Check if an item is locked
 
 **Kind**: instance method of <code>[ArchiveManager](#ArchiveManager)</code>  
@@ -265,7 +279,7 @@ Check if an item is locked
 
 | Param | Type | Description |
 | --- | --- | --- |
-| name | <code>String</code> | The name of the item |
+| archiveName | <code>String</code> | The name of the item |
 
 <a name="ArchiveManager+loadState"></a>
 
@@ -277,7 +291,7 @@ Used when the page loads to restore the archive items list (all are locked at
 **Kind**: instance method of <code>[ArchiveManager](#ArchiveManager)</code>  
 <a name="ArchiveManager+lock"></a>
 
-### archiveManager.lock(name) ⇒ <code>Promise</code>
+### archiveManager.lock(archiveName) ⇒ <code>Promise</code>
 Lock an item
 
 **Kind**: instance method of <code>[ArchiveManager](#ArchiveManager)</code>  
@@ -291,7 +305,19 @@ Lock an item
 
 | Param | Type | Description |
 | --- | --- | --- |
-| name | <code>String</code> | The name of the item to lock |
+| archiveName | <code>String</code> | The name of the item to lock |
+
+<a name="ArchiveManager+removeArchive"></a>
+
+### archiveManager.removeArchive(archiveName) ⇒ <code>Boolean</code>
+Remove an archive by name
+
+**Kind**: instance method of <code>[ArchiveManager](#ArchiveManager)</code>  
+**Returns**: <code>Boolean</code> - True if deleted, false if not found  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| archiveName | <code>String</code> | The name of the archive to remove |
 
 <a name="ArchiveManager+saveState"></a>
 
@@ -302,7 +328,7 @@ Save the state of the manager to the storage
 **Returns**: <code>Promise</code> - A promise that resolves once the state has been saved  
 <a name="ArchiveManager+unlock"></a>
 
-### archiveManager.unlock(name, password) ⇒ <code>Promise</code>
+### archiveManager.unlock(archiveName, password) ⇒ <code>Promise</code>
 Unlock a locked item
 
 **Kind**: instance method of <code>[ArchiveManager](#ArchiveManager)</code>  
@@ -314,7 +340,7 @@ Unlock a locked item
 
 | Param | Type | Description |
 | --- | --- | --- |
-| name | <code>String</code> | The name of the item to unlock |
+| archiveName | <code>String</code> | The name of the item to unlock |
 | password | <code>String</code> | The master password of the item to unlock |
 
 <a name="ArchiveManager.ArchiveStatus"></a>
@@ -396,15 +422,16 @@ Output the datasource as an object
 **Kind**: global variable  
 
 * [StorageInterface](#StorageInterface) : <code>Object</code>
-    * [.getData](#StorageInterface.getData)
+    * [.getData](#StorageInterface.getData) ⇒ <code>\*</code>
     * [.setData](#StorageInterface.setData)
 
 <a name="StorageInterface.getData"></a>
 
-### StorageInterface.getData
+### StorageInterface.getData ⇒ <code>\*</code>
 Get data from storage
 
 **Kind**: static property of <code>[StorageInterface](#StorageInterface)</code>  
+**Returns**: <code>\*</code> - The fetched data  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -435,6 +462,7 @@ Archive details for display
 | --- | --- | --- |
 | name | <code>String</code> | The name of the item |
 | status | <code>ArchiveStatus</code> | The status of the item |
+| type | <code>String</code> | The type of archive connection |
 
 <a name="ManagedArchiveItem"></a>
 
