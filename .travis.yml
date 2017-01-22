@@ -19,7 +19,7 @@ script:
   - npm run test:ci
 language: node_js
 node_js:
-  - "4.3"
+  - "stable"
 notifications:
   webhooks:
     urls:

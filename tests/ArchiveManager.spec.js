@@ -24,6 +24,7 @@ describe("ArchiveManager", function() {
                 this.workspace = new SharedWorkspace();
                 this.workspace.setPrimaryArchive(testArchive, this.datasource, "pass");
                 let creds = new Credentials();
+                creds.type = "text";
                 creds.setMeta(Credentials.DATASOURCE_META, this.datasource.toString());
                 this.archiveManager.addArchive(
                     "test",
@@ -55,7 +56,8 @@ describe("ArchiveManager", function() {
                 .saveState()
                 .then(() => this.archiveManager.loadState())
                 .then(() => {
-                    expect(this.archiveManager.archives["test"].status).to.equal(ArchiveManager.ArchiveStatus.LOCKED);
+                    expect(this.archiveManager.archives.test.status).to.equal(ArchiveManager.ArchiveStatus.LOCKED);
+                    expect(this.archiveManager.archives.test.type).to.equal("text");
                 });
         });
 
@@ -95,7 +97,16 @@ describe("ArchiveManager", function() {
                 .saveState()
                 .then(() => {
                     let storage = JSON.parse(this.savedData);
-                    expect(storage.archives.test).to.have.length.above(50);
+                    expect(storage.archives.test.content).to.have.length.above(50);
+                });
+        });
+
+        it("saves type", function() {
+            return this.archiveManager
+                .saveState()
+                .then(() => {
+                    let storage = JSON.parse(this.savedData);
+                    expect(storage.archives.test.type).to.equal("text");
                 });
         });
 

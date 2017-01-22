@@ -5,5 +5,10 @@
     "es6": true,
     "mocha": true,
     "jasmine": true
+  },
+  "rules": {
+    "func-names": 0,
+    "no-unused-expressions": 0,
+    "padded-blocks": 0
   }
 }
