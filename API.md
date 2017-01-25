@@ -49,6 +49,7 @@
         * [.removeArchive(archiveName)](#ArchiveManager+removeArchive) ⇒ <code>Boolean</code>
         * [.saveState()](#ArchiveManager+saveState) ⇒ <code>Promise</code>
         * [.unlock(archiveName, password)](#ArchiveManager+unlock) ⇒ <code>Promise</code>
+        * [.updateUnlocked()](#ArchiveManager+updateUnlocked) ⇒ <code>Promise</code>
     * _static_
         * [.ArchiveStatus](#ArchiveManager.ArchiveStatus)
 
@@ -183,6 +184,13 @@ Unlock a locked item
 | archiveName | <code>String</code> | The name of the item to unlock |
 | password | <code>String</code> | The master password of the item to unlock |
 
+<a name="ArchiveManager+updateUnlocked"></a>
+
+### archiveManager.updateUnlocked() ⇒ <code>Promise</code>
+Update workspaces that are unlocked
+
+**Kind**: instance method of <code>[ArchiveManager](#ArchiveManager)</code>  
+**Returns**: <code>Promise</code> - A promise that resolves after updating all unlocked workspaces  
 <a name="ArchiveManager.ArchiveStatus"></a>
 
 ### ArchiveManager.ArchiveStatus
@@ -209,6 +217,7 @@ Stored archive status
         * [.removeArchive(archiveName)](#ArchiveManager+removeArchive) ⇒ <code>Boolean</code>
         * [.saveState()](#ArchiveManager+saveState) ⇒ <code>Promise</code>
         * [.unlock(archiveName, password)](#ArchiveManager+unlock) ⇒ <code>Promise</code>
+        * [.updateUnlocked()](#ArchiveManager+updateUnlocked) ⇒ <code>Promise</code>
     * _static_
         * [.ArchiveStatus](#ArchiveManager.ArchiveStatus)
 
@@ -343,6 +352,13 @@ Unlock a locked item
 | archiveName | <code>String</code> | The name of the item to unlock |
 | password | <code>String</code> | The master password of the item to unlock |
 
+<a name="ArchiveManager+updateUnlocked"></a>
+
+### archiveManager.updateUnlocked() ⇒ <code>Promise</code>
+Update workspaces that are unlocked
+
+**Kind**: instance method of <code>[ArchiveManager](#ArchiveManager)</code>  
+**Returns**: <code>Promise</code> - A promise that resolves after updating all unlocked workspaces  
 <a name="ArchiveManager.ArchiveStatus"></a>
 
 ### ArchiveManager.ArchiveStatus

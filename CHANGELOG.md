@@ -1,5 +1,10 @@
 # Buttercup core-web changelog
 
+## v0.20.0
+_2017-01-25_
+
+ * Add update method for unlocked archives in ArchiveManager
+
 ## v0.19.0
 _2017-01-22_
 
