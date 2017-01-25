@@ -251,6 +251,29 @@ class ArchiveManager {
             });
     }
 
+    /**
+     * Update workspaces that are unlocked
+     * @returns {Promise} A promise that resolves after updating all unlocked workspaces
+     */
+    updateUnlocked() {
+        return Promise.all(
+            this.unlockedArchives.map(item => item.workspace
+                .localDiffersFromRemote()
+                .then(function(differs) {
+                    return differs ?
+                        item.workspace.mergeSaveablesFromRemote().then(() => true) :
+                        false;
+                })
+                .then(function(save) {
+                    // all up to date
+                    return save ?
+                        item.workspace.save() :
+                        null;
+                })
+            )
+        );
+    }
+
 }
 
 /**
