@@ -1,8 +1,8 @@
 describe("Buttercup.vendor", function() {
 
-	"use strict";
+    "use strict";
 
-	describe("iocane", function() {
+    describe("iocane", function() {
 
         it("derives the correct password", function(done) {
             window.Buttercup.vendor.iocane.derivation.deriveFromPassword("p455", "salt", 30000)
@@ -28,7 +28,7 @@ describe("Buttercup.vendor", function() {
                 .catch(function(err) {
                     console.error(err);
                 });
-        })
+        });
 
     });
 

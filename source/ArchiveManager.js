@@ -3,9 +3,9 @@
 var Buttercup = require("buttercup"),
     StorageInterface = require("__buttercup_web/StorageInterface.js");
 
-var Credentials = Buttercup.Credentials,
+var createCredentials = Buttercup.createCredentials,
     DatasourceAdapter = Buttercup.DatasourceAdapter,
-    SharedWorkspace = Buttercup.SharedWorkspace;
+    Workspace = Buttercup.Workspace;
 
 /**
  * Archive Manager - manages a set of archives for the browser
@@ -43,7 +43,7 @@ class ArchiveManager {
      * @type {Array.<ArchiveDetailsDisplay>}
      */
     get displayList() {
-        let archives = this.archives;
+        const archives = this.archives;
         return Object.keys(archives).map(archiveName => ({
             name: archiveName,
             status: archives[archiveName].status,
@@ -63,7 +63,7 @@ class ArchiveManager {
      * Stored archive entry
      * @typedef {Object} ManagedArchiveItem
      * @property {ArchiveStatus} status The status of the item
-     * @property {SharedWorkspace|undefined} workspace Reference to the workspace (undefined if locked)
+     * @property {Workspace|undefined} workspace Reference to the workspace (undefined if locked)
      * @property {Credentials|String} credentials Reference to Credentials instance (encrypted string if locked)
      * @property {String|undefined} password The master password (undefined if locked)
      */
@@ -73,7 +73,7 @@ class ArchiveManager {
      * @type {Array.<ManagedArchiveItem>}
      */
     get unlockedArchives() {
-        let archives = this.archives;
+        const archives = this.archives;
         return Object.keys(archives)
             .map(archiveName => Object.assign({ name: archiveName }, archives[archiveName]))
             .filter(details => details.status === ArchiveManager.ArchiveStatus.UNLOCKED);
@@ -82,7 +82,7 @@ class ArchiveManager {
     /**
      * Add an archive to the manager
      * @param {String} archiveName A unique name for the item
-     * @param {SharedWorkspace} workspace The workspace that holds the archive, datasource etc.
+     * @param {Workspace} workspace The workspace that holds the archive, datasource etc.
      * @param {Credentials} credentials The credentials for remote storage etc.
      *  (these should also already hold datasource meta information)
      * @param {String} masterPassword The master password
@@ -123,7 +123,7 @@ class ArchiveManager {
         this._archives = {};
         for (const archiveName in loadedData.archives) {
             if (loadedData.archives.hasOwnProperty(archiveName)) {
-                let { content, type } = loadedData.archives[archiveName];
+                const { content, type } = loadedData.archives[archiveName];
                 this.archives[archiveName] = {
                     status: ArchiveManager.ArchiveStatus.LOCKED,
                     credentials: content,
@@ -154,7 +154,7 @@ class ArchiveManager {
         }
         details.status = ArchiveManager.ArchiveStatus.PROCESSING;
         return details.credentials
-            .convertToSecureContent(details.password)
+            .toSecureString(details.password)
             .then(function(encContent) {
                 details.credentials = encContent;
                 delete details.workspace;
@@ -195,7 +195,7 @@ class ArchiveManager {
             } else {
                 delayed.push(
                     archiveDetails.credentials
-                        .convertToSecureContent(archiveDetails.password)
+                        .toSecureString(archiveDetails.password)
                         .then(function handledConvertedContent(content) {
                             packet.archives[archiveName] = {
                                 content,
@@ -225,27 +225,27 @@ class ArchiveManager {
             return Promise.resolve(archiveDetails);
         }
         archiveDetails.status = ArchiveManager.ArchiveStatus.PROCESSING;
-        return Credentials
-            .createFromSecureContent(archiveDetails.credentials, password)
+        return createCredentials
+            .fromSecureString(archiveDetails.credentials, password)
             .then((credentials) => {
                 if (!credentials) {
                     return Promise.reject(new Error("Failed unlocking credentials: " + archiveName));
                 }
                 archiveDetails.credentials = credentials;
                 archiveDetails.password = password;
-                let datasourceInfo = JSON.parse(credentials.getMeta(Credentials.DATASOURCE_META)),
+                let datasourceInfo = JSON.parse(credentials.getValueOrFail("datasource")),
                     ds = DatasourceAdapter.objectToDatasource(datasourceInfo, credentials);
                 if (!ds) {
                     throw new Error("Failed creating datasource - possible corrupt credentials");
                 }
                 return Promise.all([
-                    ds.load(password),
+                    ds.load(createCredentials.fromPassword(password)),
                     Promise.resolve(ds)
                 ]);
             })
             .then(([archive, datasource] = []) => {
-                const workspace = new SharedWorkspace();
-                workspace.setPrimaryArchive(archive, datasource, password);
+                const workspace = new Workspace();
+                workspace.setPrimaryArchive(archive, datasource, createCredentials.fromPassword(password));
                 archiveDetails.workspace = workspace;
                 archiveDetails.status = ArchiveManager.ArchiveStatus.UNLOCKED;
             });

@@ -1,9 +1,9 @@
 describe("ArchiveManager", function() {
     var Buttercup = window.Buttercup,
         Archive = Buttercup.Archive,
-        Credentials = Buttercup.Credentials,
+        createCredentials = Buttercup.createCredentials,
         TextDatasource = Buttercup.TextDatasource,
-        SharedWorkspace = Buttercup.SharedWorkspace,
+        Workspace = Buttercup.Workspace,
         ArchiveManager = Buttercup.Web.ArchiveManager;
 
 
@@ -18,14 +18,13 @@ describe("ArchiveManager", function() {
         let testArchive = Archive.createWithDefaults(),
             testDatasource = new TextDatasource();
         return testDatasource
-            .save(testArchive, "pass")
+            .save(testArchive, createCredentials.fromPassword("pass"))
             .then((archiveEnc) => {
                 this.datasource = new TextDatasource(archiveEnc);
-                this.workspace = new SharedWorkspace();
-                this.workspace.setPrimaryArchive(testArchive, this.datasource, "pass");
-                let creds = new Credentials();
-                creds.type = "text";
-                creds.setMeta(Credentials.DATASOURCE_META, this.datasource.toString());
+                this.workspace = new Workspace();
+                this.workspace.setPrimaryArchive(testArchive, this.datasource, createCredentials.fromPassword("pass"));
+                let creds = createCredentials("text");
+                creds.setValue("datasource", this.datasource.toString());
                 this.archiveManager.addArchive(
                     "test",
                     this.workspace,
