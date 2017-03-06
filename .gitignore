@@ -8,5 +8,6 @@ node_modules
 
 _SpecRunner.html
 .history
+.vscode
 
 build
