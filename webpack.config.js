@@ -39,8 +39,10 @@ module.exports = [
         module: { loaders },
         node,
         output: {
-            path:       path.resolve(__dirname, "./build"),
-            filename:   "buttercup.js"
+            path:           path.resolve(__dirname, "./build"),
+            filename:       "buttercup.js",
+            library:        "Buttercup",
+            libraryTarget:  "umd"
         },
         plugins: [
             new webpack.DefinePlugin(defines),
@@ -55,8 +57,10 @@ module.exports = [
         module: { loaders },
         node,
         output: {
-            path:       path.resolve(__dirname, "./build"),
-            filename:   "buttercup.min.js"
+            path:           path.resolve(__dirname, "./build"),
+            filename:       "buttercup.min.js",
+            library:        "Buttercup",
+            libraryTarget:  "umd"
         },
         plugins: [
             new webpack.DefinePlugin(defines),

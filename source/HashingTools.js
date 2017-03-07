@@ -1,5 +1,6 @@
 "use strict";
 
+const Buttercup = require("buttercup");
 const subtleCrypto = window.crypto.subtle;
 
 function arrayBufferToHexString(arrayBuffer) {
@@ -104,7 +105,7 @@ const lib = module.exports = {
      * Perform patching of the PBKDF2 function in iocane
      */
     patchCorePBKDF: function() {
-        window.Buttercup.vendor.iocane.components.setPBKDF2(lib.deriveKeyFromPassword);
+        Buttercup.vendor.iocane.components.setPBKDF2(lib.deriveKeyFromPassword);
     }
 
 };

@@ -1,11 +1,11 @@
 const dropboxFS = require("dropbox-fs");
+const Buttercup = require("buttercup");
 
-const TextDatasource = window.Buttercup.TextDatasource;
-const registerDatasource = window.Buttercup.DatasourceAdapter.registerDatasource;
+const TextDatasource = Buttercup.TextDatasource;
+const registerDatasource = Buttercup.DatasourceAdapter.registerDatasource;
 
 /**
  * Datasource for Dropbox archives
- * @class DropboxDatasource
  * @augments TextDatasource
  */
 class DropboxDatasource extends TextDatasource {
