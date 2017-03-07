@@ -7,6 +7,8 @@ var createCredentials = Buttercup.createCredentials,
     DatasourceAdapter = Buttercup.DatasourceAdapter,
     Workspace = Buttercup.Workspace;
 
+var __sharedManager = null;
+
 /**
  * Archive Manager - manages a set of archives for the browser
  * @class ArchiveManager
@@ -286,6 +288,14 @@ ArchiveManager.ArchiveStatus = {
     LOCKED: "locked",
     UNLOCKED: "unlocked",
     PROCESSING: "processing"
+};
+
+ArchiveManager.getSharedManager = function getSharedManager() {
+    if (__sharedManager === null) {
+        __sharedManager = new ArchiveManager();
+        __sharedManager.loadState();
+    }
+    return __sharedManager;
 };
 
 module.exports = ArchiveManager;

@@ -1,11 +1,11 @@
 describe("ArchiveManager", function() {
+
     var Buttercup = window.Buttercup,
         Archive = Buttercup.Archive,
         createCredentials = Buttercup.createCredentials,
         TextDatasource = Buttercup.TextDatasource,
         Workspace = Buttercup.Workspace,
         ArchiveManager = Buttercup.Web.ArchiveManager;
-
 
     beforeEach(function() {
         this.archiveManager = new ArchiveManager({
