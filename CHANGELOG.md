@@ -1,5 +1,14 @@
 # Buttercup core-web changelog
 
+## v0.21.0
+_2017-03-07_
+
+ * **Breaking**:
+    * Export UMD module instead of default `window` only attachment
+    * Update core to 0.34.0 (credentials breaking changes)
+    * Global, shared `archiveManager` reference removed
+ * `ArchiveManager` gets singleton method
+
 ## v0.20.0
 _2017-01-25_
 
