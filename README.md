@@ -12,6 +12,9 @@ API reference:
  * This API ([core-web](API.md))
  * [Core API](https://github.com/buttercup-pw/buttercup-core/blob/master/doc/api.md)
 
+## Usage
+Buttercup core-web is a UMD module, so you can import it using [AMD](http://requirejs.org/docs/whyamd.html#amd) or [CommonJS](http://requirejs.org/docs/whyamd.html#commonjs) styles, or by simply including it as script on a webpage (exposes `Buttercup` and `Buttercup.Web` on the `window`).
+
 ## Cryptography
 The core-web library utilises current technology to encrypt and hash and very high speed, and this is supported by only the [newest browsers](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto#Browser_compatibility).
 

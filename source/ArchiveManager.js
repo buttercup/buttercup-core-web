@@ -11,7 +11,6 @@ var __sharedManager = null;
 
 /**
  * Archive Manager - manages a set of archives for the browser
- * @class ArchiveManager
  */
 class ArchiveManager {
 
@@ -283,6 +282,7 @@ class ArchiveManager {
  * @name ArchiveStatus
  * @enum
  * @memberof ArchiveManager
+ * @static
  */
 ArchiveManager.ArchiveStatus = {
     LOCKED: "locked",
@@ -290,6 +290,12 @@ ArchiveManager.ArchiveStatus = {
     PROCESSING: "processing"
 };
 
+/**
+ * Get the singleton shared instance
+ * @memberof ArchiveManager
+ * @static
+ * @returns {ArchiveManager} The shared instance
+ */
 ArchiveManager.getSharedManager = function getSharedManager() {
     if (__sharedManager === null) {
         __sharedManager = new ArchiveManager();

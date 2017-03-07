@@ -6,7 +6,6 @@ const registerDatasource = Buttercup.DatasourceAdapter.registerDatasource;
 
 /**
  * Datasource for Dropbox archives
- * @class DropboxDatasource
  * @augments TextDatasource
  */
 class DropboxDatasource extends TextDatasource {
