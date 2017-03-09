@@ -16,6 +16,13 @@
 <dd></dd>
 </dl>
 
+## Objects
+
+<dl>
+<dt><a href="#ArchiveTools">ArchiveTools</a> : <code>object</code></dt>
+<dd></dd>
+</dl>
+
 ## Typedefs
 
 <dl>
@@ -262,6 +269,40 @@ Set data for a key
 | --- | --- | --- |
 | key | <code>String</code> | The key to set for |
 | rawData | <code>Object</code> &#124; <code>Array</code> &#124; <code>String</code> &#124; <code>Number</code> &#124; <code>\*</code> | The raw data to set |
+
+<a name="ArchiveTools"></a>
+
+## ArchiveTools : <code>object</code>
+**Kind**: global namespace  
+
+* [ArchiveTools](#ArchiveTools) : <code>object</code>
+    * [.extractDomain(url)](#ArchiveTools.extractDomain) ⇒ <code>String</code>
+    * [.getEntriesForURL(archive, url)](#ArchiveTools.getEntriesForURL) ⇒ <code>Array.&lt;Entry&gt;</code>
+
+<a name="ArchiveTools.extractDomain"></a>
+
+### ArchiveTools.extractDomain(url) ⇒ <code>String</code>
+Extract the domain from a URL
+
+**Kind**: static method of <code>[ArchiveTools](#ArchiveTools)</code>  
+**Returns**: <code>String</code> - The domain or an empty string if none found  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| url | <code>String</code> | The URL to extract from |
+
+<a name="ArchiveTools.getEntriesForURL"></a>
+
+### ArchiveTools.getEntriesForURL(archive, url) ⇒ <code>Array.&lt;Entry&gt;</code>
+Get entries for a particular URL
+
+**Kind**: static method of <code>[ArchiveTools](#ArchiveTools)</code>  
+**Returns**: <code>Array.&lt;Entry&gt;</code> - An array of entries  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| archive | <code>Archive</code> | A buttercup archive instance |
+| url | <code>String</code> | A URL |
 
 <a name="ArchiveDetailsDisplay"></a>
 

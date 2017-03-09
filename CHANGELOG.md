@@ -1,5 +1,10 @@
 # Buttercup core-web changelog
 
+## v0.22.0
+_2017-03-09_
+
+ * Improve URL matching
+
 ## v0.21.0
 _2017-03-07_
 
