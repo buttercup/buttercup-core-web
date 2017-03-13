@@ -1,5 +1,11 @@
 # Buttercup core-web changelog
 
+## v0.23.0
+_2017-03-13_
+
+ * Upgrade core to 0.35.0
+    * Entry property serialisation (breaks backwards compatibility with older Buttercup builds)
+
 ## v0.22.0
 _2017-03-09_
 
