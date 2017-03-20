@@ -119,7 +119,7 @@
     "consistent-this": [1,"_this"],
     "eol-last": 2,
     "func-names": 1,
-    "indent": [2,4],
+    "indent": [2, 4, {"SwitchCase": 1}],
     "key-spacing": [2,{"afterColon":true}],
     "linebreak-style": [2,"unix"],
     "new-cap": [2,{"newIsCap":true,"capIsNew":true}],
