@@ -7,6 +7,8 @@
 <dt><a href="#DropboxDatasource">DropboxDatasource</a> ⇐ <code>TextDatasource</code></dt>
 <dd><p>Datasource for Dropbox archives</p>
 </dd>
+<dt><a href="#EntryFinder">EntryFinder</a></dt>
+<dd></dd>
 </dl>
 
 ## Members
@@ -23,6 +25,14 @@
 <dd></dd>
 </dl>
 
+## Functions
+
+<dl>
+<dt><a href="#flattenEntries">flattenEntries(archives)</a> ⇒ <code><a href="#EntrySearchInfo">Array.&lt;EntrySearchInfo&gt;</a></code></dt>
+<dd><p>Flatten entries into a searchable structure</p>
+</dd>
+</dl>
+
 ## Typedefs
 
 <dl>
@@ -32,6 +42,8 @@
 <dt><a href="#ManagedArchiveItem">ManagedArchiveItem</a> : <code>Object</code></dt>
 <dd><p>Stored archive entry</p>
 </dd>
+<dt><a href="#EntrySearchInfo">EntrySearchInfo</a> : <code>Object</code></dt>
+<dd></dd>
 </dl>
 
 <a name="ArchiveManager"></a>
@@ -236,6 +248,56 @@ Output the datasource as an object
 
 **Kind**: instance method of <code>[DropboxDatasource](#DropboxDatasource)</code>  
 **Returns**: <code>Object</code> - An object describing the datasource  
+<a name="EntryFinder"></a>
+
+## EntryFinder
+**Kind**: global class  
+
+* [EntryFinder](#EntryFinder)
+    * [new EntryFinder(_archives)](#new_EntryFinder_new)
+    * [.items](#EntryFinder+items) : <code>[Array.&lt;EntrySearchInfo&gt;](#EntrySearchInfo)</code>
+    * [.lastResult](#EntryFinder+lastResult) : <code>[Array.&lt;EntrySearchInfo&gt;](#EntrySearchInfo)</code>
+    * [.initSearcher()](#EntryFinder+initSearcher)
+    * [.search(term)](#EntryFinder+search) ⇒ <code>[Array.&lt;EntrySearchInfo&gt;](#EntrySearchInfo)</code>
+
+<a name="new_EntryFinder_new"></a>
+
+### new EntryFinder(_archives)
+
+| Param | Type | Description |
+| --- | --- | --- |
+| _archives | <code>Array.&lt;Archive&gt;</code> &#124; <code>Archive</code> | The archives to search |
+
+<a name="EntryFinder+items"></a>
+
+### entryFinder.items : <code>[Array.&lt;EntrySearchInfo&gt;](#EntrySearchInfo)</code>
+All items
+
+**Kind**: instance property of <code>[EntryFinder](#EntryFinder)</code>  
+<a name="EntryFinder+lastResult"></a>
+
+### entryFinder.lastResult : <code>[Array.&lt;EntrySearchInfo&gt;](#EntrySearchInfo)</code>
+The last result
+
+**Kind**: instance property of <code>[EntryFinder](#EntryFinder)</code>  
+<a name="EntryFinder+initSearcher"></a>
+
+### entryFinder.initSearcher()
+Initialise the searching mechanism
+
+**Kind**: instance method of <code>[EntryFinder](#EntryFinder)</code>  
+<a name="EntryFinder+search"></a>
+
+### entryFinder.search(term) ⇒ <code>[Array.&lt;EntrySearchInfo&gt;](#EntrySearchInfo)</code>
+Search and get results
+
+**Kind**: instance method of <code>[EntryFinder](#EntryFinder)</code>  
+**Returns**: <code>[Array.&lt;EntrySearchInfo&gt;](#EntrySearchInfo)</code> - The results  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| term | <code>String</code> | The search term |
+
 <a name="StorageInterface"></a>
 
 ## StorageInterface : <code>Object</code>
@@ -304,6 +366,18 @@ Get entries for a particular URL
 | archive | <code>Archive</code> | A buttercup archive instance |
 | url | <code>String</code> | A URL |
 
+<a name="flattenEntries"></a>
+
+## flattenEntries(archives) ⇒ <code>[Array.&lt;EntrySearchInfo&gt;](#EntrySearchInfo)</code>
+Flatten entries into a searchable structure
+
+**Kind**: global function  
+**Returns**: <code>[Array.&lt;EntrySearchInfo&gt;](#EntrySearchInfo)</code> - An array of searchable objects  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| archives | <code>Array.&lt;Archive&gt;</code> | An array of archives |
+
 <a name="ArchiveDetailsDisplay"></a>
 
 ## ArchiveDetailsDisplay : <code>Object</code>
@@ -332,4 +406,15 @@ Stored archive entry
 | workspace | <code>Workspace</code> &#124; <code>undefined</code> | Reference to the workspace (undefined if locked) |
 | credentials | <code>Credentials</code> &#124; <code>String</code> | Reference to Credentials instance (encrypted string if locked) |
 | password | <code>String</code> &#124; <code>undefined</code> | The master password (undefined if locked) |
+
+<a name="EntrySearchInfo"></a>
+
+## EntrySearchInfo : <code>Object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| entry | <code>Entry</code> | The entry |
+| archive | <code>Archive</code> | The associated archive |
 
