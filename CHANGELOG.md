@@ -1,5 +1,10 @@
 # Buttercup core-web changelog
 
+## v0.24.0
+_2017-03-20_
+
+ * Added `EntryFinder` for fuzzy searching entries
+
 ## v0.23.0
 _2017-03-13_
 
