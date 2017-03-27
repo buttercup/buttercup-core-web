@@ -1,5 +1,11 @@
 # Buttercup core-web changelog
 
+## v0.25.0
+_2017-03-27_
+
+ * Upgrade core to 0.37.0
+    * Added support for `Group.getGroup()` to access parent groups
+
 ## v0.24.0
 _2017-03-20_
 
