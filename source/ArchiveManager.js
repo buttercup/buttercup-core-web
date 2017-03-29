@@ -249,6 +249,10 @@ class ArchiveManager {
                 workspace.setPrimaryArchive(archive, datasource, createCredentials.fromPassword(password));
                 archiveDetails.workspace = workspace;
                 archiveDetails.status = ArchiveManager.ArchiveStatus.UNLOCKED;
+            })
+            .catch(function(err) {
+                archiveDetails.status = ArchiveManager.ArchiveStatus.LOCKED;
+                throw err;
             });
     }
 
