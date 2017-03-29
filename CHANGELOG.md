@@ -1,5 +1,10 @@
 # Buttercup core-web changelog
 
+## v0.25.1
+_2017-03-29_
+
+ * Bugfix: Error in archive unlock process (wrong password) broke state
+
 ## v0.25.0
 _2017-03-27_
 
