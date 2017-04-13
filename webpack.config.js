@@ -1,10 +1,6 @@
 var path              = require("path"),
-	webpack           = require("webpack");
-
-const paths = [
-    path.resolve('./source'),
-    /buttercup/
-];
+    fs                = require("fs"),
+    webpack           = require("webpack");
 
 const defines = {
     "global.GENTLY": false
@@ -17,7 +13,17 @@ const loaders = [
     },
     {
         test: /\.js$/,
-        loader: "babel"
+        loader: "babel-loader",
+        include: [
+            path.resolve(__dirname, "./source"),
+            fs.realpathSync(path.resolve(__dirname, "./node_modules/buttercup")),
+            path.resolve(__dirname, "./node_modules")
+        ],
+        query: {
+            presets: [
+                fs.realpathSync(path.resolve(__dirname, "./node_modules/babel-preset-es2015"))
+            ]
+        }
     }
 ];
 const node = {
@@ -27,9 +33,10 @@ const node = {
 const resolve = {
     alias: {
         crypto:             require.resolve("crypto-browserify"),
-        __buttercup_web:    path.resolve(__dirname, './source')
+        __buttercup_web:    path.resolve(__dirname, "./source")
     },
-    fallback: [ path.join(__dirname, 'node_modules') ]
+    fallback: [ path.join(__dirname, "node_modules") ],
+    modulesDirectories: [ path.join(__dirname, "node_modules") ]
 };
 const stats = { colors: true };
 
@@ -50,6 +57,9 @@ module.exports = [
             new webpack.IgnorePlugin(/vertx/)
         ],
         resolve,
+        resolveLoader: {
+            fallback: [ path.join(__dirname, "node_modules") ]
+        },
         stats
     },
     {
@@ -73,6 +83,9 @@ module.exports = [
             })
         ],
         resolve,
+        resolveLoader: {
+            fallback: [ path.join(__dirname, "node_modules") ]
+        },
         stats
     }
 ];
