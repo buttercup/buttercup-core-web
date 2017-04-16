@@ -1,5 +1,11 @@
 # Buttercup core-web changelog
 
+## v0.25.2
+_2017-04-16_
+
+ * Upgrade core to 0.37.1
+   * Bugfix: Merging deletion commands when remote hasn't changed
+
 ## v0.25.1
 _2017-03-29_
 
