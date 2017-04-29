@@ -10,8 +10,8 @@ const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 const SOURCE = path.resolve(__dirname, "./source");
 const BUILD = path.resolve(__dirname, "./build");
 const NODE_MODULES = path.resolve(__dirname, "./node_modules");
-// const BABEL_PRESET = fs.realpathSync(path.resolve(__dirname, "./node_modules/babel-preset-es2015"));
 const BUTTERCUP_CORE = fs.realpathSync(path.resolve(NODE_MODULES, "./buttercup"));
+const IOCANE = fs.realpathSync(path.resolve(NODE_MODULES, "./iocane"));
 
 const entry = path.resolve(SOURCE, "./index.js");
 const rules = [
@@ -24,7 +24,8 @@ const rules = [
         use: "babel-loader",
         include: [
             SOURCE,
-            BUTTERCUP_CORE
+            BUTTERCUP_CORE,
+            IOCANE
         ]
     }
 ];
@@ -39,7 +40,7 @@ const resolve = {
     },
     extensions: [".js"],
     symlinks: false,
-    modules: [ NODE_MODULES, BUTTERCUP_CORE ]
+    modules: [ NODE_MODULES, BUTTERCUP_CORE, IOCANE ]
 };
 const stats = { colors: true };
 
