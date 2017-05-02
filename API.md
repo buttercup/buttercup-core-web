@@ -6,6 +6,9 @@
 </dd>
 <dt><a href="#EntryFinder">EntryFinder</a></dt>
 <dd></dd>
+<dt><a href="#LocalStorageInterface">LocalStorageInterface</a> ⇐ <code>StorageInterface</code></dt>
+<dd><p>Interface for localStorage</p>
+</dd>
 </dl>
 
 ## Objects
@@ -109,6 +112,51 @@ Search and get results
 | Param | Type | Description |
 | --- | --- | --- |
 | term | <code>String</code> | The search term |
+
+<a name="LocalStorageInterface"></a>
+
+## LocalStorageInterface ⇐ <code>StorageInterface</code>
+Interface for localStorage
+
+**Kind**: global class  
+**Extends:** <code>StorageInterface</code>  
+
+* [LocalStorageInterface](#LocalStorageInterface) ⇐ <code>StorageInterface</code>
+    * [.getAllKeys()](#LocalStorageInterface+getAllKeys) ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
+    * [.getValue(name)](#LocalStorageInterface+getValue) ⇒ <code>Promise.&lt;String&gt;</code>
+    * [.setValue(name, value)](#LocalStorageInterface+setValue) ⇒ <code>Promise</code>
+
+<a name="LocalStorageInterface+getAllKeys"></a>
+
+### localStorageInterface.getAllKeys() ⇒ <code>Promise.&lt;Array.&lt;String&gt;&gt;</code>
+Get all keys from storage
+
+**Kind**: instance method of <code>[LocalStorageInterface](#LocalStorageInterface)</code>  
+**Returns**: <code>Promise.&lt;Array.&lt;String&gt;&gt;</code> - A promise that resolves with an array of keys  
+<a name="LocalStorageInterface+getValue"></a>
+
+### localStorageInterface.getValue(name) ⇒ <code>Promise.&lt;String&gt;</code>
+Get the value of a key
+
+**Kind**: instance method of <code>[LocalStorageInterface](#LocalStorageInterface)</code>  
+**Returns**: <code>Promise.&lt;String&gt;</code> - A promise that resolves with the value  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| name | <code>String</code> | The key name |
+
+<a name="LocalStorageInterface+setValue"></a>
+
+### localStorageInterface.setValue(name, value) ⇒ <code>Promise</code>
+Set the value for a key
+
+**Kind**: instance method of <code>[LocalStorageInterface](#LocalStorageInterface)</code>  
+**Returns**: <code>Promise</code> - A promise that resolves when the value is set  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| name | <code>String</code> | The key name |
+| value | <code>String</code> | The value to set |
 
 <a name="ArchiveTools"></a>
 

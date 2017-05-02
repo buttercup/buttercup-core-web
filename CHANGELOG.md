@@ -1,5 +1,15 @@
 # Buttercup core-web changelog
 
+## v0.26.0
+_2017-05-02_
+
+_Due to package **deprecation**, this release helps to gradually phase out functionality in core-web._
+
+ * Remove `ArchiveManager` and `StorageInterface`
+ * Upgrade core to 0.38.0
+   * New `ArchiveManager`
+ * Add `LocalStorageInterface` for use with core's `ArchiveManager`
+
 ## v0.25.2
 _2017-04-16_
 
