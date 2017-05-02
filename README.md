@@ -10,7 +10,9 @@ For the most part this library inherits all functionality from [Buttercup core](
 API reference:
 
  * This API ([core-web](API.md))
- * [Core API](https://github.com/buttercup-pw/buttercup-core/blob/master/doc/api.md)
+ * [Core API](https://github.com/buttercup/buttercup-core/blob/master/doc/api.md)
+ 
+## _**Deprecated**: Core-web will slowly be integrated completely with [Buttercup core](https://github.com/buttercup/buttercup-core/)_
 
 ## Usage
 Buttercup core-web is a UMD module, so you can import it using [AMD](http://requirejs.org/docs/whyamd.html#amd) or [CommonJS](http://requirejs.org/docs/whyamd.html#commonjs) styles, or by simply including it as script on a webpage (exposes `Buttercup` and `Buttercup.Web` on the `window`).
