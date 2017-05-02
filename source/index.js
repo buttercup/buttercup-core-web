@@ -6,6 +6,7 @@ const ArchiveTools = require("__buttercup_web/ArchiveTools.js");
 const EntryFinder = require("__buttercup_web/EntryFinder.js");
 const HashingTools = require("__buttercup_web/HashingTools.js");
 const DropboxDatasource = require("__buttercup_web/DropboxDatasource.js");
+const LocalStorageInterface = require("__buttercup_web/LocalStorageInterface.js");
 
 module.exports = Object.assign(
     {},
@@ -15,7 +16,8 @@ module.exports = Object.assign(
             ArchiveTools,
             DropboxDatasource,
             EntryFinder,
-            HashingTools
+            HashingTools,
+            LocalStorageInterface
         }
     }
 );
