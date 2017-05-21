@@ -26,22 +26,15 @@ const tools = module.exports = {
      * @memberof ArchiveTools
      */
     getEntriesForURL: function(archive, url) {
-        var entries = [];
-        ["URL", "url"].forEach(function(metaKey) {
-            var newEntries = archive
-                .findEntriesByMeta(metaKey, /.+/)
-                .filter(function(entry) {
-                    var entryURL = entry.getMeta(metaKey),
-                        entryDomain = tools.extractDomain(entryURL);
-                    return entryDomain.length > 0 &&
-                        entryDomain === tools.extractDomain(url) &&
-                        entry.isInTrash() === false;
-                });
-            if (newEntries.length > 0) {
-                entries = entries.concat(newEntries);
-            }
-        });
-        return entries;
+        return archive
+            .findEntriesByMeta("url", /.+/)
+            .filter(function(entry) {
+                var entryURL = entry.getMeta("url"),
+                    entryDomain = tools.extractDomain(entryURL);
+                return entryDomain.length > 0 &&
+                    entryDomain === tools.extractDomain(url) &&
+                    entry.isInTrash() === false;
+            });
     }
 
 };
