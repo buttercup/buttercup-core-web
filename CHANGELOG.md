@@ -1,5 +1,11 @@
 # Buttercup core-web changelog
 
+## v0.27.0
+_2017-05-21_
+
+ * Update core to 0.39.0
+   * Support setting deferred handlers for `TextDatasource` crypto
+
 ## v0.26.0
 _2017-05-02_
 
