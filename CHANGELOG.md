@@ -1,5 +1,11 @@
 # Buttercup core-web changelog
 
+## v0.27.1
+_2017-05-22_
+
+ * Update core to 0.39.1
+   * Expose previously created methods for React Native support
+
 ## v0.27.0
 _2017-05-21_
 
