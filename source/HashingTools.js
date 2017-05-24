@@ -58,7 +58,7 @@ const lib = module.exports = {
      * @see checkBrowserSupport
      * @returns {Promise.<ArrayBuffer>} A promise that resolves with an ArrayBuffer
      */
-    deriveKeyFromPassword: function(password, salt, rounds, bits /* , algorithm */) {
+    deriveKeyFromPassword: function deriveKeyFromPassword(password, salt, rounds, bits /* , algorithm */) {
         checkBrowserSupport();
 
         let params = {
@@ -103,9 +103,10 @@ const lib = module.exports = {
 
     /**
      * Perform patching of the PBKDF2 function in iocane
+     * @param {Function|undefined=} handler Optionally override the internal PBKDF2 engine
      */
-    patchCorePBKDF: function() {
-        Buttercup.vendor.iocane.components.setPBKDF2(lib.deriveKeyFromPassword);
+    patchCorePBKDF: function patchCorePBKDF(handler = lib.deriveKeyFromPassword) {
+        Buttercup.vendor.iocane.components.setPBKDF2(handler);
     }
 
 };

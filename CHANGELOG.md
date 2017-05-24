@@ -1,5 +1,10 @@
 # Buttercup core-web changelog
 
+## v0.28.0
+_2017-05-24_
+
+ * Allow for external PBKDF2 functions in patching
+
 ## v0.27.1
 _2017-05-22_
 
