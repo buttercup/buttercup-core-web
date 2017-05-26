@@ -1,7 +1,6 @@
 "use strict";
 
 const Buttercup = require("buttercup");
-const subtleCrypto = window.crypto.subtle;
 
 function arrayBufferToHexString(arrayBuffer) {
     var byteArray = new Uint8Array(arrayBuffer);
@@ -60,6 +59,7 @@ const lib = module.exports = {
      */
     deriveKeyFromPassword: function deriveKeyFromPassword(password, salt, rounds, bits /* , algorithm */) {
         checkBrowserSupport();
+        const subtleCrypto = window.crypto.subtle;
 
         let params = {
                 name: "PBKDF2",

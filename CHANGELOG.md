@@ -1,5 +1,10 @@
 # Buttercup core-web changelog
 
+## v0.28.1
+_2017-05-27_
+
+ * Move SubtleCrypto reference into PBKDF2 function (fixes global reference when not available - eg. not browser)
+
 ## v0.28.0
 _2017-05-24_
 
