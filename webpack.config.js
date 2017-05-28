@@ -12,6 +12,7 @@ const BUILD = path.resolve(__dirname, "./build");
 const NODE_MODULES = path.resolve(__dirname, "./node_modules");
 const BUTTERCUP_CORE = fs.realpathSync(path.resolve(NODE_MODULES, "./buttercup"));
 const IOCANE = fs.realpathSync(path.resolve(NODE_MODULES, "./iocane"));
+const WEBDAVFS = fs.realpathSync(path.resolve(NODE_MODULES, "./webdav-fs"));
 
 const entry = path.resolve(SOURCE, "./index.js");
 const rules = [
@@ -25,7 +26,8 @@ const rules = [
         include: [
             SOURCE,
             BUTTERCUP_CORE,
-            IOCANE
+            IOCANE,
+            WEBDAVFS
         ]
     }
 ];
@@ -40,7 +42,7 @@ const resolve = {
     },
     extensions: [".js"],
     symlinks: false,
-    modules: [ NODE_MODULES, BUTTERCUP_CORE, IOCANE ]
+    modules: [ NODE_MODULES, BUTTERCUP_CORE, IOCANE, WEBDAVFS ]
 };
 const stats = { colors: true };
 

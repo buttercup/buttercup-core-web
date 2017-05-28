@@ -64,6 +64,6 @@
     "webpack": "~2.4.1"
   },
   "dependencies": {
-    "buttercup": "~0.39.1"
+    "buttercup": "~0.40.0"
   }
 }
