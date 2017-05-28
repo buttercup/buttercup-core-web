@@ -1,5 +1,13 @@
 # Buttercup core-web changelog
 
+## v0.29.0
+_2017-05-28_
+
+ * Update core to 0.40.0
+   * Update webdav-fs to 1.0.0
+   * Add event emitters to core classes
+   * **Bugfix**: empty value encoding
+
 ## v0.28.1
 _2017-05-27_
 
