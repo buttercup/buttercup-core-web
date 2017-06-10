@@ -1,5 +1,10 @@
 # Buttercup core-web changelog
 
+## v0.30.0
+_2017-06-07_
+
+ * Add `ArchiveManager` and `StorageInterface` back for compatibility
+
 ## v0.29.0
 _2017-05-28_
 
