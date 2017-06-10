@@ -3,6 +3,7 @@ const fs = require("fs");
 const webpack = require("webpack");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 const Visualizer = require("webpack-visualizer-plugin");
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 // const defines = {
 //     "global.GENTLY": false
@@ -64,6 +65,7 @@ module.exports = [
         },
         plugins: [
             // new webpack.DefinePlugin(defines),
+            new LodashModuleReplacementPlugin(),
             new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, "node-noop"),
             new webpack.IgnorePlugin(/vertx/),
             ...developmentPlugins
@@ -85,6 +87,7 @@ module.exports = [
         },
         plugins: [
             // new webpack.DefinePlugin(defines),
+            new LodashModuleReplacementPlugin(),
             new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, "node-noop"),
             new webpack.IgnorePlugin(/vertx/),
             new UglifyJSPlugin({
