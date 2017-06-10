@@ -2,6 +2,8 @@ const path = require("path");
 const fs = require("fs");
 const webpack = require("webpack");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
+const Visualizer = require("webpack-visualizer-plugin");
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 
 // const defines = {
 //     "global.GENTLY": false
@@ -45,6 +47,8 @@ const resolve = {
     modules: [ NODE_MODULES, BUTTERCUP_CORE, IOCANE, WEBDAVFS ]
 };
 const stats = { colors: true };
+const developmentPlugins = process.env.VIS === "stats" ?
+    [ new Visualizer() ] : [];
 
 module.exports = [
 
@@ -61,8 +65,10 @@ module.exports = [
         },
         plugins: [
             // new webpack.DefinePlugin(defines),
+            new LodashModuleReplacementPlugin(),
             new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, "node-noop"),
-            new webpack.IgnorePlugin(/vertx/)
+            new webpack.IgnorePlugin(/vertx/),
+            ...developmentPlugins
         ],
         resolve,
         stats
@@ -81,6 +87,7 @@ module.exports = [
         },
         plugins: [
             // new webpack.DefinePlugin(defines),
+            new LodashModuleReplacementPlugin(),
             new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, "node-noop"),
             new webpack.IgnorePlugin(/vertx/),
             new UglifyJSPlugin({
