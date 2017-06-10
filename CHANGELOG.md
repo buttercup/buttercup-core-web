@@ -1,5 +1,12 @@
 # Buttercup core-web changelog
 
+## v0.31.0
+_2017-06-10_
+
+ * Update core to 0.40.1
+   * Add missing event to core's `ArchiveManager`
+ * Reduce bundle size by using lodash replacement plugins
+
 ## v0.30.0
 _2017-06-07_
 
