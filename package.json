@@ -61,7 +61,8 @@
     "uglify-js": "^2.8.22",
     "uglifyjs": "~2.4.10",
     "uglifyjs-webpack-plugin": "^0.4.3",
-    "webpack": "~2.4.1"
+    "webpack": "~2.4.1",
+    "webpack-visualizer-plugin": "^0.1.11"
   },
   "dependencies": {
     "buttercup": "~0.40.0"
