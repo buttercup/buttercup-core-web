@@ -1,5 +1,11 @@
 # Buttercup core-web changelog
 
+## v0.32.1
+_2017-06-30_
+
+ * Update core to 0.41.1
+   * Fix core `ArchiveManager` `Workspace` creation providing wrong credentials
+
 ## v0.32.0
 _2017-06-24_
 
