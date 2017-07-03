@@ -1,5 +1,11 @@
 # Buttercup core-web changelog
 
+## v0.32.2
+_2017-07-03_
+
+ * Update core to 0.41.2
+   * Fix core `ArchiveManager` `unlock` method breaking when wrong password entered
+
 ## v0.32.1
 _2017-06-30_
 

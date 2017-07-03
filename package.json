@@ -1,6 +1,6 @@
 {
   "name": "buttercup-web",
-  "version": "0.32.1",
+  "version": "0.32.2",
   "description": "Buttercup core library for the web.",
   "main": "build/buttercup.min.js",
   "scripts": {
@@ -67,6 +67,6 @@
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "dependencies": {
-    "buttercup": "~0.41.1"
+    "buttercup": "~0.41.2"
   }
 }
