@@ -1,5 +1,11 @@
 # Buttercup core-web changelog
 
+## v0.33.0
+_2017-07-06_
+
+ * Update core to 0.42.0
+   * Change event emitters to be asynchronous
+
 ## v0.32.2
 _2017-07-03_
 
