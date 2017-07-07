@@ -1,5 +1,11 @@
 # Buttercup core-web changelog
 
+## v0.33.1
+_2017-07-07_
+
+ * Update core to 0.33.1
+   * Fix core `ArchiveManager` `unlockedSources` returning incorrect results
+
 ## v0.33.0
 _2017-07-06_
 
