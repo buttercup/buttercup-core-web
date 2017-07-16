@@ -1,9 +1,9 @@
 # Buttercup core-web changelog
 
-## v0.34.0
+## v0.34.1
 _2017-07-16_
 
- * Update core to 0.44.0
+ * Update core to 0.44.1
    * Expose `webdav-fs` in vendor props (`fetch` method override support)
 
 ## v0.33.1
