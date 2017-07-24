@@ -1,5 +1,12 @@
 # Buttercup core-web changelog
 
+## v0.35.0
+_2017-07-45_
+
+ * Update core to 0.45.0
+   * Fix `Entry` facade consumption
+   * `Entry` `getProperty`/`getMeta`/`getAttribute` support for 0 parameters
+
 ## v0.34.1
 _2017-07-16_
 
