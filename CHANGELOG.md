@@ -1,5 +1,11 @@
 # Buttercup core-web changelog
 
+## v0.36.0
+_2017-08-26_
+
+ * Upgrade core to 0.46.0, upgrade iocane to 0.8.0
+   * Expose override functions for crypto
+
 ## v0.35.0
 _2017-07-45_
 
