@@ -1,5 +1,11 @@
 # Buttercup core-web changelog
 
+## v0.37.0
+_2017-08-29_
+
+ * Update core to 0.47.0
+   * Core crypto now async
+
 ## v0.36.0
 _2017-08-26_
 
