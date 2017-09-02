@@ -1,9 +1,15 @@
 # Buttercup core-web changelog
 
+## v0.38.0
+_2017-09-02_
+
+ * Upgrade core to 0.48.0
+   * Expose overridable crypto methods
+
 ## v0.37.0
 _2017-08-29_
 
- * Update core to 0.47.0
+ * Upgrade core to 0.47.0
    * Core crypto now async
 
 ## v0.36.0
