@@ -1,5 +1,11 @@
 # Buttercup core-web changelog
 
+## v0.39.0
+_2017-09-04_
+
+ * Upgrade core to 0.49.0
+   * Expose additional crypto overrides for IV and salt generation
+
 ## v0.38.0
 _2017-09-02_
 
