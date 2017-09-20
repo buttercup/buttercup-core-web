@@ -17,6 +17,21 @@ API reference:
 ## Usage
 Buttercup core-web is a UMD module, so you can import it using [AMD](http://requirejs.org/docs/whyamd.html#amd) or [CommonJS](http://requirejs.org/docs/whyamd.html#commonjs) styles, or by simply including it as script on a webpage (exposes `Buttercup` and `Buttercup.Web` on the `window`).
 
+Importing Buttercup into other projects is easy:
+
+```javascript
+import { Archive } from "buttercup-web";
+// or
+const { Archive } = require("buttercup-web");
+```
+
+When using **react-native**, there's a special version of the script which should be used when Dropbox, for example, may be used:
+
+```javascript
+import { Archive, Web as ButtercupWeb } from "buttercup-web/dist/react-native-buttercup.min.js";
+const { DropboxDatasource } = ButtercupWeb;
+```
+
 ## Cryptography
 The core-web library utilises current technology to encrypt and hash and very high speed, and this is supported by only the [newest browsers](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto#Browser_compatibility).
 

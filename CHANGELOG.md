@@ -1,5 +1,11 @@
 # Buttercup core-web changelog
 
+## v0.40.0
+_2017-09-20_
+
+ * Add react-native version of the script (compatibility)
+ * Switch to using `/dist` instead of `/build`
+
 ## v0.39.0
 _2017-09-04_
 
