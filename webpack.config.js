@@ -10,7 +10,7 @@ const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 // };
 
 const SOURCE = path.resolve(__dirname, "./source");
-const BUILD = path.resolve(__dirname, "./build");
+const DIST = path.resolve(__dirname, "./dist");
 const NODE_MODULES = path.resolve(__dirname, "./node_modules");
 const BUTTERCUP_CORE = fs.realpathSync(path.resolve(NODE_MODULES, "./buttercup"));
 const IOCANE = fs.realpathSync(path.resolve(NODE_MODULES, "./iocane"));
@@ -58,7 +58,7 @@ module.exports = [
         module: { rules },
         node,
         output: {
-            path: BUILD,
+            path: DIST,
             filename: "buttercup.js",
             library: "Buttercup",
             libraryTarget: "umd"
@@ -80,7 +80,7 @@ module.exports = [
         module: { rules },
         node,
         output: {
-            path: BUILD,
+            path: DIST,
             filename: "buttercup.min.js",
             library: "Buttercup",
             libraryTarget: "umd"
@@ -99,6 +99,38 @@ module.exports = [
             })
         ],
         resolve,
+        stats
+    },
+
+    // Minified + React-Native compat
+    {
+        entry,
+        module: { rules },
+        node,
+        output: {
+            path: DIST,
+            filename: "react-native-buttercup.min.js",
+            library: "Buttercup",
+            libraryTarget: "umd"
+        },
+        plugins: [
+            // new webpack.DefinePlugin(defines),
+            new LodashModuleReplacementPlugin(),
+            new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, "node-noop"),
+            new webpack.IgnorePlugin(/vertx/),
+            new UglifyJSPlugin({
+                compress: {
+                    warnings: false
+                },
+                mangle: true,
+                comments: false
+            })
+        ],
+        resolve: Object.assign({
+            alias: Object.assign({
+                dropbox: "react-native-dropbox-sdk"
+            }, resolve.alias)
+        }, resolve),
         stats
     }
 
