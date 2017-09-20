@@ -1,11 +1,11 @@
 {
   "name": "buttercup-web",
-  "version": "0.40.0",
+  "version": "0.40.1",
   "description": "Buttercup core library for the web.",
-  "main": "build/buttercup.min.js",
+  "main": "dist/buttercup.min.js",
   "scripts": {
     "build": "npm run clean && webpack",
-    "clean": "rimraf build/*.*",
+    "clean": "rimraf dist/*.*",
     "dev": "webpack --progress --watch",
     "generate:docs": "jsdoc2md 'source/**/*.js' > API.md",
     "karma": "karma start",
@@ -16,8 +16,9 @@
     "test:watch": "npm run karma"
   },
   "files": [
-    "build/buttercup.js",
-    "build/buttercup.min.js"
+    "dist/buttercup.js",
+    "dist/buttercup.min.js",
+    "dist/react-native-buttercup.min.js"
   ],
   "repository": {
     "type": "git",
