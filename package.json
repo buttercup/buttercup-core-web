@@ -1,6 +1,6 @@
 {
   "name": "buttercup-web",
-  "version": "0.40.1",
+  "version": "0.40.2",
   "description": "Buttercup core library for the web.",
   "main": "dist/buttercup.min.js",
   "scripts": {
