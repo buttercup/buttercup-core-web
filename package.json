@@ -1,6 +1,6 @@
 {
   "name": "buttercup-web",
-  "version": "0.40.3",
+  "version": "0.40.4",
   "description": "Buttercup core library for the web.",
   "main": "dist/buttercup.min.js",
   "scripts": {
@@ -59,7 +59,7 @@
     "lodash-webpack-plugin": "^0.11.4",
     "mocha": "^3.1.2",
     "node-noop": "^1.0.0",
-    "react-native-dropbox-sdk": "~0.3.0",
+    "react-native-dropbox-sdk": "~0.4.0",
     "rimraf": "^2.5.4",
     "sinon": "^1.17.6",
     "uglify-js": "^2.8.22",
