@@ -46,6 +46,8 @@ const resolve = {
     symlinks: false,
     modules: [ NODE_MODULES, BUTTERCUP_CORE, IOCANE, WEBDAVFS ]
 };
+const resolveRN = Object.assign({}, resolve);
+resolveRN.alias.dropbox = "react-native-dropbox-sdk";
 const stats = { colors: true };
 const developmentPlugins = process.env.VIS === "stats" ?
     [ new Visualizer() ] : [];
@@ -126,11 +128,7 @@ module.exports = [
                 comments: false
             })
         ],
-        resolve: Object.assign({
-            alias: Object.assign({
-                dropbox: "react-native-dropbox-sdk"
-            }, resolve.alias)
-        }, resolve),
+        resolve: resolveRN,
         stats
     }
 
