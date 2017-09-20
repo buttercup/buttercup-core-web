@@ -1,6 +1,6 @@
 # Buttercup core-web changelog
 
-## v0.40.2
+## v0.40.3
 _2017-09-20_
 
  * Add react-native version of the script (compatibility)
