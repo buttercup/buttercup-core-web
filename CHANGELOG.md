@@ -1,5 +1,11 @@
 # Buttercup core-web changelog
 
+## v0.41.0
+_2017-10-16_
+
+ * Upgrade core to 0.50.0
+   * Allow overriding of existing datasources
+
 ## v0.40.4
 _2017-09-20_
 
